@@ -437,3 +437,45 @@ MainScreen As screen:
         Y: =299
         ZIndex: =12
 
+    Label1 As label:
+        Height: =70
+        Size: =21
+        Text: =varMin
+        Width: =293
+        X: =15
+        Y: =244
+        ZIndex: =13
+
+    Button1 As button:
+        Height: =70
+        OnSelect: |
+            =Set(
+                varMax,
+                First(
+                    Sort(
+                        'Expense Information',
+                        Total,
+                        SortOrder.Descending
+                    )
+                ).Total
+            );
+            Set(
+                varMin,
+                First(
+                    Sort(
+                        Filter(
+                            'Expense Information',
+                            Total <> Blank()
+                        ),
+                        Total,
+                        SortOrder.Ascending
+                    )
+                ).Total
+            );
+        Size: =24
+        Text: ="Button"
+        Width: =280
+        X: =308
+        Y: =244
+        ZIndex: =14
+
