@@ -44,7 +44,6 @@ MainScreen As screen:
 
         lblHowMany As label:
             Align: =Align.Center
-            Fill: =RGBA(166, 215, 153, 1)
             Height: =70
             OnSelect: =Select(Parent)
             Size: =21
