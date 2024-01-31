@@ -1,0 +1,469 @@
+AddRoleScreen As screen:
+
+    "cbxRoleCompLevel As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyCNLFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =colCompetenceLevels
+        OnChange: =If(IsBlank(cbxRoleCompLevel.Selected.Level), Set(varEmptyCNLFieldsError, true), Set(varEmptyCNLFieldsError, false))
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =897
+        Y: =477
+        ZIndex: =1
+
+        Level2 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Level"
+            FieldName: ="Level"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =3
+            ZIndex: =12
+
+    recHeaderRS As rectangle:
+        Fill: =RGBA(0, 121, 187, .9)
+        Height: =141
+        Width: =1366
+        ZIndex: =2
+
+    icoHomeRS As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.Home
+        OnSelect: =Navigate(LoadingScreen, ScreenTransition.CoverRight)
+        Width: =71
+        X: =1273
+        Y: =14
+        ZIndex: =3
+
+    lblHeaderRS As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =81
+        Size: =32
+        Text: |-
+            ="Add New Role
+            "
+        Width: =715
+        X: =15
+        ZIndex: =4
+
+    lblAddRoleText As label:
+        Color: =RGBA(0, 121, 187, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        Size: =20
+        Text: ="Add role"
+        Width: =330
+        X: =48
+        Y: =185
+        ZIndex: =5
+
+    lblRoleNameAdd As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =42
+        Size: =16
+        Text: |-
+            ="Role Name:"
+        Width: =232
+        X: =48
+        Y: =262
+        ZIndex: =6
+
+    lblRoleDescAdd As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =42
+        Size: =16
+        Text: |-
+            ="Role Description:"
+        Width: =277
+        X: =48
+        Y: =330
+        ZIndex: =7
+
+    lblRoleCompNameAdd As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =42
+        Size: =16
+        Text: |-
+            ="Competence Name:"
+        Width: =214
+        X: =48
+        Y: =470
+        ZIndex: =8
+
+    btnAddRole As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: |-
+            =Set(varButtonAddRole, true);
+            Set(varButtonAddRole, false)
+            //Concat(cbxCompetenceName.SelectedItems, CompetenceName, "; ")
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Text: ="Add Role"
+        TextColor: =
+        Width: =231
+        X: =570
+        Y: =679
+        ZIndex: =9
+
+    txtRoleName As text:
+        BorderThickness: =0
+        Default: =""
+        Fill: =If(varEmptyRNFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        HintText: =""
+        OnChange: =If(IsBlank(txtRoleName.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
+        X: =325
+        Y: =268
+        ZIndex: =10
+
+    txtRoleDesc As text:
+        BorderThickness: =0
+        Default: =""
+        Fill: =If(varEmptyRDFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        HintText: =""
+        OnChange: =If(IsBlank(txtRoleDesc.Text), Set(varEmptyRDFieldsError, true), Set(varEmptyRDFieldsError, false))
+        X: =325
+        Y: =332
+        ZIndex: =11
+
+    "cbxCompetenceName As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyCNRFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =colCompetences
+        OnChange: =If(IsBlank(cbxCompetenceName.Selected.CompetenceName), Set(varEmptyCNRFieldsError, true), Set(varEmptyCNRFieldsError, false))
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =325
+        Y: =476
+        ZIndex: =12
+
+        CompetenceName1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="CompetenceName"
+            FieldName: ="CompetenceName"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =4
+            ZIndex: =9
+
+    lblRoleError As label:
+        Color: =RGBA(255, 0, 0, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =48
+        Size: =11
+        Text: ="Highlighted fields cannot be empty"
+        Visible: =varEmptyCNFieldsError || varEmptyCDFieldsError || varEmptyCLFieldsError
+        Width: =293
+        X: =325
+        Y: =191
+        ZIndex: =13
+
+    lblRoleKeeper As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =42
+        Size: =16
+        Text: |-
+            ="Role Keeper:"
+        Width: =277
+        X: =48
+        Y: =394
+        ZIndex: =14
+
+    "cbxRoleKeeper As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyRKFieldError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =colEmployeeList
+        OnChange: =If(IsBlank(cbxRoleKeeper.Selected.Employee.DisplayName), Set(varEmptyRKFieldError, true), Set(varEmptyRKFieldError, false))
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =325
+        Y: =401
+        ZIndex: =15
+
+        Employee1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Employee"
+            FieldName: ="Employee"
+            FieldType: ="E"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =5
+
+    lblRoleCompLvlAdd As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =42
+        Size: =16
+        Text: |-
+            ="Competence Level:"
+        Width: =214
+        X: =675
+        Y: =475
+        ZIndex: =16
+
+    ErrorPopUpARS As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =18
+
+        recErrorGrey_1 As rectangle:
+            Fill: =RGBA(166, 166, 166, .4)
+            Height: =768
+            Visible: =varErrorARSPopUp
+            Width: =1366
+            ZIndex: =23
+
+        recErrorRed_1 As rectangle:
+            BorderColor: =RGBA(255, 0, 0, 1)
+            BorderThickness: =1
+            Fill: =RGBA(238, 204, 204, 1)
+            Height: =374
+            Visible: =varErrorARSPopUp
+            Width: =633
+            X: =366
+            Y: =229
+            ZIndex: =24
+
+        icoErrorCAS_1 As icon.Error:
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =91
+            Icon: =Icon.Error
+            Visible: =varErrorARSPopUp
+            Width: =89
+            X: =638
+            Y: =366
+            ZIndex: =25
+
+        lblFixErrorsCAS_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 0, 0, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =93
+            Size: =26
+            Text: ="Fix errors"
+            Visible: =varErrorARSPopUp
+            Width: =233
+            X: =568
+            Y: =262
+            ZIndex: =26
+
+        btnErrorCAS_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =15
+            Height: =52
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: =Set(varErrorARSPopUp, false)
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="Confirm"
+            TextColor: =
+            Visible: =varErrorARSPopUp
+            Width: =231
+            X: =568
+            Y: =516
+            ZIndex: =27
+
+    ConfirmPopUpARS As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =24
+
+        recConfirmCASPopUpBackgroudn_1 As rectangle:
+            Fill: =RGBA(166, 166, 166, .4)
+            Height: =768
+            Visible: =varConfirmARSPopUp
+            Width: =1366
+            ZIndex: =17
+
+        recPopUpMainCAS_1 As rectangle:
+            Fill: =RGBA(187, 221, 140, 1)
+            Height: =393
+            Visible: =varConfirmARSPopUp
+            Width: =628
+            X: =353
+            Y: =219
+            ZIndex: =18
+
+        btnConfirmConf_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =15
+            Height: =40
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: =Set(varConfirmARSPopUp, false); Set(varStartTimer, true); Navigate(LoadingScreen);
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="OK!"
+            TextColor: =
+            Visible: =varConfirmARSPopUp
+            Width: =176
+            X: =568
+            Y: =501
+            ZIndex: =20
+
+        lblConfirmText_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(54, 176, 75, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =82
+            Size: =26
+            Text: ="Competence Added Successfully"
+            Visible: =varConfirmARSPopUp
+            Width: =372
+            X: =470
+            Y: =273
+            ZIndex: =21
+
+        icoConfigmCAS_1 As icon.Check:
+            Color: =RGBA(54, 176, 75, 1)
+            Icon: =Icon.Check
+            Visible: =varConfirmARSPopUp
+            X: =624
+            Y: =383
+            ZIndex: =22
+
+    tglBtnAddRole As toggleSwitch:
+        Default: =varButtonAddRole
+        OnCheck: |-
+            =If(
+                IsBlank(txtRoleName.Text),
+                Set(
+                    varEmptyRNFieldsError,
+                    true
+                ) && Set(
+                    varErrorARSPopUp,
+                    true
+                ),
+                IsBlank(txtRoleDesc.Text),
+                Set(
+                    varEmptyRNFieldsError,
+                    true
+                ) && Set(
+                    varErrorARSPopUp,
+                    true
+                ),
+                IsBlank(cbxRoleKeeper.Selected.Employee.DisplayName),
+                Set(
+                    varEmptyRNFieldsError,
+                    true
+                ) && Set(
+                    varErrorARSPopUp,
+                    true
+                ),
+                IsBlank(cbxCompetenceName.Selected.CompetenceName),
+                Set(
+                    varEmptyRNFieldsError,
+                    true
+                ) && Set(
+                    varErrorARSPopUp,
+                    true
+                ),
+                IsBlank(cbxRoleCompLevel.Selected.Level),
+                Set(
+                    varEmptyRNFieldsError,
+                    true
+                ) && Set(
+                    varErrorARSPopUp,
+                    true
+                ),
+                Patch(
+                    Roles,
+                    Defaults(Roles),
+                    {   RoleGuid: GUID(),
+                        Name: txtRoleName.Text,
+                        RoleDescription: txtRoleDesc.Text,
+                        Keeper: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                            Department: "",
+                            Claims: "i:0#.f|membership|" & User().Email,
+                            DisplayName: cbxRoleKeeper.Selected.Employee.DisplayName,
+                            Email: cbxRoleKeeper.Selected.Employee.Email,
+                            JobTitle: "",
+                            Picture: ""
+                        },
+                        RequireCompetences: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: cbxCompetenceName.Selected.ID,
+                            Value: cbxCompetenceName.Selected.CompetenceName
+                        },
+                        CompLevel: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: cbxRoleCompLevel.Selected.ID,
+                            Value: cbxRoleCompLevel.Selected.Level
+                        }
+                    }
+                )
+            );
+            If(
+                varErrorARSPopUp = false,
+                Set(
+                    varConfirmARSPopUp,
+                    true
+                ) && Reset(txtRoleName);
+                Reset(txtRoleDesc);
+                Reset(cbxRoleKeeper);
+                Reset(cbxCompetenceName);
+                Reset(cbxRoleCompLevel)
+            )
+        Visible: =false
+        X: =1274
+        Y: =740
+        ZIndex: =28
+

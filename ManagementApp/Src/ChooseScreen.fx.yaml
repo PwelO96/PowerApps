@@ -1,0 +1,250 @@
+ChooseScreen As screen:
+    BackgroundImage: =
+    ImagePosition: =ImagePosition.Stretch
+
+    recHeaderCHS As rectangle:
+        Fill: =RGBA(0, 121, 187, .9)
+        Height: =141
+        Width: =1366
+        ZIndex: =1
+
+    icoHomeCHS As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.Home
+        OnSelect: =Navigate(LoadingScreen, ScreenTransition.CoverRight)
+        Width: =71
+        X: =1273
+        Y: =14
+        ZIndex: =2
+
+    lblHeaderCHS As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =81
+        Size: =32
+        Text: |-
+            ="Choose Option
+            "
+        Width: =715
+        X: =15
+        ZIndex: =3
+
+    btnMakeEvaluationChoose As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(EvaluationScreen,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="Make Evaluation"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =426
+        ZIndex: =4
+
+    brnAddRole As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(AddRoleScreen,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="Add Role"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =347
+        ZIndex: =5
+
+    btnAddCompetence As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(CompetenceAddScreen,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="Add Competence"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =189
+        ZIndex: =6
+
+    btnCompetenceList As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(CompetenceListScreen,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="Competence List"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =268
+        ZIndex: =7
+
+    imgBackground As image:
+        Height: =627
+        Image: ='question-mark-3839456_1920'
+        ImagePosition: =ImagePosition.Stretch
+        Width: =1084
+        Y: =141
+        ZIndex: =8
+
+    btnMakeEvaluationChoose_1 As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(HREvaluation,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="HR Evaluation"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =505
+        ZIndex: =9
+
+    btnMakeEvaluationChoose_2 As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(CCEvaluation,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="CC Evaluation"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =584
+        ZIndex: =10
+
+    btnMakeEvaluationChoose_3 As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(CandidateListScreen,ScreenTransition.CoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Strikethrough: =false
+        Text: ="Candidate List"
+        TextColor: =
+        VerticalAlignment: =VerticalAlign.Middle
+        Width: =231
+        X: =1113
+        Y: =668
+        ZIndex: =11
+

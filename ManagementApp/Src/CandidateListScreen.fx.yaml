@@ -1,0 +1,174 @@
+CandidateListScreen As screen:
+    BackgroundImage: ='abstract-envelope'
+    ImagePosition: =ImagePosition.Center
+
+    recHeaderCL As rectangle:
+        Fill: =RGBA(0, 121, 187, .9)
+        Height: =141
+        Width: =1366
+        ZIndex: =1
+
+    icoHomeCL As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.Home
+        OnSelect: =Navigate(LoadingScreen, ScreenTransition.CoverRight)
+        Width: =71
+        X: =1273
+        Y: =14
+        ZIndex: =2
+
+    lblHeaderCL As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =81
+        Size: =32
+        Text: ="Candidate List"
+        Width: =715
+        X: =15
+        ZIndex: =3
+
+    "galCandidates As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =533
+        Items: =Sort(colCompEvaluation,CCPoints,SortOrder.Descending)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =104
+        Width: =1269
+        X: =45
+        Y: =184
+        ZIndex: =6
+
+        HTMLBackground As htmlViewer:
+            Height: =Parent.TemplateHeight
+            HtmlText: |-
+                ="<div style=""margin: 12px 10px 8px 10px; width: "&(Self.Width-31)&"px; height: "&(Self.Height-31)&"px; background-color: white; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border-radius:5px""></div> "
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        lblCandidateName As label:
+            FontWeight: =FontWeight.Bold
+            Height: =27
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.EvaluationPerson.DisplayName
+            Width: =181
+            X: =49
+            Y: =24
+            ZIndex: =2
+
+        txtRequiredPoints As text:
+            BorderStyle: =BorderStyle.None
+            Default: ="Required Points"
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 121, 187, .9)
+            Height: =25
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =12
+            Width: =250
+            X: =422
+            Y: =20
+            ZIndex: =3
+
+        txtSelfMark As text:
+            BorderStyle: =BorderStyle.None
+            Default: ="Self Rating"
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 121, 187, .9)
+            Height: =25
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =12
+            Width: =250
+            X: =671
+            Y: =20
+            ZIndex: =4
+
+        txtCCMark As text:
+            BorderStyle: =BorderStyle.None
+            Default: ="CC Rating"
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0, 121, 187, .9)
+            Height: =25
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =12
+            Width: =250
+            X: =920
+            Y: =20
+            ZIndex: =5
+
+        lblRequiredPoints As label:
+            Fill: =RGBA(237, 237, 237, 1)
+            Height: =41
+            Text: =If(ThisItem.CompetenceLvl = "Basic Level", "5", ThisItem.CompetenceLvl = "Intermediate Level", "10", ThisItem.CompetenceLvl = "Expert Level", "15", "0")
+            Width: =249
+            X: =422
+            Y: =45
+            ZIndex: =6
+
+        lblSelfPoints As label:
+            Fill: =RGBA(237, 237, 237, 1)
+            Height: =41
+            Text: =ThisItem.YourselfPoints
+            Width: =248
+            X: =673
+            Y: =45
+            ZIndex: =7
+
+        lblCCPoints As label:
+            Fill: =If(ThisItem.CCPoints >= Value(lblRequiredPoints.Text), RGBA(54,176,75, .6), ThisItem.CCPoints <= 0, RGBA(237,237,237, 1), RGBA(255,0,0, .6))
+            Height: =41
+            Text: =If(ThisItem.CCPoints <=0, "Not yet evaluated", ThisItem.CCPoints)
+            Width: =247
+            X: =923
+            Y: =45
+            ZIndex: =8
+
+        lblCandidateName_1 As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =34
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.WhichJobRole
+            Width: =370
+            X: =49
+            Y: =52
+            ZIndex: =9
+
+        imgPerson As image:
+            Height: =30
+            Image: ='person-svgrepo-com'
+            OnSelect: =Select(Parent)
+            Width: =25
+            X: =24
+            Y: =21
+            ZIndex: =10
+
+        imgJobRole As image:
+            Height: =25
+            Image: ='job-profile-svgrepo-com'
+            OnSelect: =Select(Parent)
+            Width: =25
+            X: =24
+            Y: =58
+            ZIndex: =11
+
+        imgDetails As image:
+            Height: =50
+            HoverFill: =
+            Image: ='contact-details-filled-svgrepo-com'
+            OnSelect: ="text"
+            Width: =50
+            X: =1189
+            Y: =29
+            ZIndex: =12
+

@@ -1,0 +1,491 @@
+HREvaluation As screen:
+
+    recHeaderHRE As rectangle:
+        Fill: =RGBA(0, 121, 187, .9)
+        Height: =141
+        Width: =1366
+        ZIndex: =1
+
+    icoHomeHRE As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.Home
+        OnSelect: =Navigate(LoadingScreen, ScreenTransition.CoverRight)
+        Width: =71
+        X: =1273
+        Y: =14
+        ZIndex: =2
+
+    lblHeaderHRE As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =81
+        Size: =32
+        Text: |-
+            ="HR Evaluation
+            "
+        Width: =715
+        X: =15
+        ZIndex: =3
+
+    lblHREvaluation As label:
+        Color: =RGBA(0, 121, 187, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =20
+        Text: |-
+            ="HR evaluation for job role
+            "
+        Width: =378
+        X: =59
+        Y: =179
+        ZIndex: =4
+
+    btnSubmit As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =55
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: |-
+            =Set(varButtonHREvaluation, true);
+            Set(varButtonHREvaluation, false)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Text: ="Submit"
+        TextColor: =
+        Width: =239
+        X: =563
+        Y: =682
+        ZIndex: =5
+
+    "cbxCandidateHRE As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        AllowSearching: =true
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyCanFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =Distinct(colEvaluationNames, Value)
+        OnChange: |-
+            =If(
+                IsBlank(cbxCandidateHRE.Selected.Value),
+                Set(
+                    varEmptyCanFieldsError,
+                    true
+                ),
+                Set(
+                    varEmptyCanFieldsError,
+                    false
+                )
+            )
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =340
+        Y: =272
+        ZIndex: =6
+
+        ValueCandidate As pcfDataField.textualColumn:
+            FieldDisplayName: ="Value"
+            FieldName: ="Value"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =6
+
+    lblCandidateHRE As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: |-
+            ="Candidate:"
+        Width: =264
+        X: =76
+        Y: =272
+        ZIndex: =7
+
+    lblCompetencesHRE As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: |-
+            ="Competences:"
+        Width: =242
+        X: =76
+        Y: =354
+        ZIndex: =8
+
+    "cbxLevelHRE As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        AllowSearching: =false
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyLHRFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =colCompLvls
+        OnChange: |-
+            =If(
+                IsBlank(cbxLevelHRE.Selected.Level),
+                Set(
+                    varEmptyLHRFieldsError,
+                    true
+                ),
+                Set(
+                    varEmptyLHRFieldsError,
+                    false
+                )
+            )
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =841
+        Y: =354
+        ZIndex: =9
+
+        Level4 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Level"
+            FieldName: ="Level"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =3
+
+    lblLevelHRE As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: |-
+            ="Level:"
+        Width: =97
+        X: =705
+        Y: =354
+        ZIndex: =10
+
+    txtCompetencesHRE As text:
+        BorderThickness: =0
+        Default: =
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(243,242,241,1)
+        HintText: =""
+        OnChange: =If(IsBlank(txtCompetencesHRE.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
+        X: =340
+        Y: =354
+        ZIndex: =11
+
+    lblCommentHRE As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: |-
+            ="Comment:"
+        Width: =242
+        X: =76
+        Y: =426
+        ZIndex: =12
+
+    txtCommentHRE As text:
+        BorderColor: =RGBA(243, 242, 241, 1)
+        BorderThickness: =0
+        Default: =""
+        Fill: =RGBA(243,242,241,1)
+        Height: =138
+        HintText: =""
+        HoverBorderColor: =RGBA(128, 128, 128, 1)
+        Mode: =TextMode.MultiLine
+        OnChange: =If(IsBlank(txtCommentHRE.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
+        PaddingBottom: =12
+        PaddingTop: =12
+        Size: =10.5
+        X: =340
+        Y: =426
+        ZIndex: =13
+
+    lblJobRoleHREText As label:
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: |-
+            ="Job Role:"
+        Width: =122
+        X: =705
+        Y: =272
+        ZIndex: =14
+
+    "cbxJobRoleHRE As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        AllowSearching: =true
+        DefaultSelectedItems: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varEmptyJRHRFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: |-
+            =Distinct(
+                AddColumns(
+                    Filter(
+                        colEvaluation,
+                        cbxCandidateHRE.Selected.Value = PersonToAssessment.DisplayName
+                    ),
+                    "JobRoleColTest",
+                    ThisRecord.JobRole.Value
+                ),
+                JobRoleColTest
+            )
+        OnChange: |-
+            =If(
+                IsBlank(cbxJobRoleHRE.Selected.Value),
+                Set(
+                    varEmptyJRHRFieldsError,
+                    true
+                ),
+                Set(
+                    varEmptyJRHRFieldsError,
+                    false
+                )
+            )
+        OnSelect: =
+        PCFTeamsTheme: ="default"
+        Text: =
+        Width: =320
+        X: =841
+        Y: =272
+        ZIndex: =15
+
+        ValueJobRoleHRE As pcfDataField.textualColumn:
+            FieldDisplayName: ="Value"
+            FieldName: ="Value"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =1
+            ZIndex: =7
+
+    drpCompetenceList As dropdown:
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(243,242,241,1)
+        Height: =34
+        Items: |-
+            =ShowColumns(
+                AddColumns(
+                    Filter(
+                        colRoles,
+                        cbxJobRoleHRE.Selected.Value = Name
+                    ),
+                    "CompetenceRole",
+                    ThisRecord.RequireCompetences.Value
+                ),
+                "CompetenceRole"
+            )
+        PaddingLeft: =6
+        Size: =10.5
+        Width: =309
+        X: =345
+        Y: =358
+        ZIndex: =18
+
+    ErrorPopUpHRE As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =22
+
+        recErrorGreyES_1 As rectangle:
+            Fill: =RGBA(166, 166, 166, .4)
+            Height: =768
+            Visible: =varErrorHREPopUp
+            Width: =1366
+            ZIndex: =26
+
+        recErrorES_1 As rectangle:
+            BorderColor: =RGBA(255, 0, 0, 1)
+            BorderThickness: =1
+            Fill: =RGBA(238, 204, 204, 1)
+            Height: =374
+            Visible: =varErrorHREPopUp
+            Width: =633
+            X: =366
+            Y: =229
+            ZIndex: =28
+
+        icoErrorES_1 As icon.Error:
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =91
+            Icon: =Icon.Error
+            Visible: =varErrorHREPopUp
+            Width: =89
+            X: =638
+            Y: =366
+            ZIndex: =29
+
+        lblFixErrorsES_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 0, 0, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =93
+            Size: =26
+            Text: ="Fix errors"
+            Visible: =varErrorHREPopUp
+            Width: =233
+            X: =568
+            Y: =262
+            ZIndex: =30
+
+        btnErrorES_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =15
+            Height: =52
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: =Set(varErrorHREPopUp, false)
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="Confirm"
+            TextColor: =
+            Visible: =varErrorHREPopUp
+            Width: =231
+            X: =568
+            Y: =516
+            ZIndex: =31
+
+    ConfirmPopUpHRE As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =27
+
+        recConfirmCASPopUpBackgroudnES_1 As rectangle:
+            Fill: =RGBA(166, 166, 166, .4)
+            Height: =768
+            Visible: =varConfirmHREPopUp
+            Width: =1366
+            ZIndex: =20
+
+        recPopUpMainES_1 As rectangle:
+            Fill: =RGBA(187, 221, 140, 1)
+            Height: =393
+            Visible: =varConfirmHREPopUp
+            Width: =628
+            X: =353
+            Y: =219
+            ZIndex: =21
+
+        btnConfirmConfES_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =15
+            Height: =40
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: =Set(varConfirmHREPopUp, false); Set(varStartTimer, true); Navigate(LoadingScreen);
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="OK!"
+            TextColor: =
+            Visible: =varConfirmHREPopUp
+            Width: =176
+            X: =568
+            Y: =501
+            ZIndex: =23
+
+        lblConfirmTextES_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(54, 176, 75, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =82
+            Size: =26
+            Text: ="Competence Added Successfully"
+            Visible: =varConfirmHREPopUp
+            Width: =372
+            X: =470
+            Y: =273
+            ZIndex: =24
+
+        icoConfigmES_1 As icon.Check:
+            Color: =RGBA(54, 176, 75, 1)
+            Icon: =Icon.Check
+            Visible: =varConfirmHREPopUp
+            X: =624
+            Y: =383
+            ZIndex: =25
+
+    tglBtnHREvaluation As toggleSwitch:
+        Default: =varButtonHREvaluation
+        OnCheck: |-
+            =If(
+                IsBlank(cbxCandidateHRE.Selected.Value),
+                Set(
+                    varEmptyCanFieldsError,
+                    true
+                ) && Set(
+                    varErrorHREPopUp,
+                    true
+                ),
+                IsBlank(cbxJobRoleHRE.Selected.Value),
+                Set(
+                    varEmptyJRHRFieldsError,
+                    true
+                ) && Set(
+                    varErrorHREPopUp,
+                    true
+                ),
+                IsBlank(cbxLevelHRE.Selected.Level),
+                Set(
+                    varEmptyLHRFieldsError,
+                    true
+                ) && Set(
+                    varErrorHREPopUp,
+                    true
+                ),
+                'MeetingWithHR(ManagementApp)'.Run(
+                    cbxCandidateHRE.Selected.Value,
+                    cbxJobRoleHRE.Selected.Value,
+                    drpCompetenceList.SelectedText.Value,
+                    cbxLevelHRE.Selected.Level,
+                    txtCommentHRE.Text
+                )
+            );
+            If(
+                varErrorHREPopUp = false,
+                Set(
+                    varConfirmHREPopUp,
+                    true
+                ) && Reset(cbxCandidateHRE) && Reset(cbxJobRoleHRE) && Reset(txtCommentHRE)
+            )
+        Visible: =false
+        X: =1262
+        Y: =737
+        ZIndex: =32
+

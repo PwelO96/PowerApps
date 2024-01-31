@@ -1,0 +1,104 @@
+LoadingScreen As screen:
+
+    LSTimer As timer:
+        AutoStart: =true
+        Duration: =600
+        OnTimerEnd: |-
+            =ClearCollect(
+                colCompetences,
+                Competences
+            );
+            ClearCollect(
+                colCompetenceLevels,
+                CompetenceLevels
+            );
+            ClearCollect(
+                colEmployeeList,
+                EmployeeList
+            );
+            ClearCollect(
+                colRoles,
+                Roles
+            );
+            ClearCollect(
+                colEvaluation,
+                Evaluation
+            );
+            ClearCollect(
+                colCompEvaluation,
+                CompetenceEvaluation
+            );
+            ClearCollect(
+                colEmployeeEmails,
+                ForAll(
+                    EmployeeList,
+                    Employee.Email
+                )
+            );
+            ClearCollect(
+                colCompLvls,
+                {Level: "Lack"},
+                CompetenceLevels
+            );
+            ClearCollect(
+                colEvaluationNames,
+                ForAll(
+                    Evaluation,
+                    PersonToAssessment.DisplayName
+                )
+            );
+            ClearCollect(
+                colCompEvaluationNames,
+                ForAll(
+                    CompetenceEvaluation,
+                    EvaluationPerson.DisplayName
+                )
+            );
+            Concurrent(
+                Set(
+                    varErrorESPopUp,
+                    false
+                ),
+                Set(
+                    varErrorARSPopUp,
+                    false
+                ),
+                Set(
+                    varErrorCASPopUp,
+                    false
+                ),
+                Set(
+                    varErrorHREPopUp,
+                    false
+                )
+            );
+            Navigate(ChooseScreen)
+        Start: =varStartTimer
+        Visible: =false
+        X: =1140
+        Y: =60
+        ZIndex: =1
+
+    icoCircle1 As circle:
+        X: =644
+        Y: =300
+        ZIndex: =2
+
+    IcoCheck1 As icon.Check:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Check
+        X: =662
+        Y: =318
+        ZIndex: =3
+
+    lblLoadingInfo As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =57
+        Size: =16
+        Text: ="Loading your date, please wait"
+        Width: =371
+        X: =508
+        Y: =434
+        ZIndex: =4
+
