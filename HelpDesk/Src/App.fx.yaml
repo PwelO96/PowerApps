@@ -1,0 +1,78 @@
+App As appinfo:
+    BackEnabled: =true
+    Formulas: |
+        =MenuData = [
+            {
+                Title: "Home",
+                GoToScreen: "MainScreen"
+            }
+        ];
+    OnStart: |-
+        =ClearCollect(
+            colServiceDesk,
+            'Service Desk'
+        );
+        ClearCollect(
+            colTabs,
+            {
+                ID: 1,
+                Card: "All Tickets",
+                Logo: Icon.Tag
+            },
+            {
+                ID: 2,
+                Card: "My Tickets",
+                Logo: Icon.LogJournal
+            },
+            {
+                ID: 3,
+                Card: "Assigned to Me",
+                Logo: Icon.AddToCalendar
+            },
+            {
+                ID: 4,
+                Card: "Overdue Tickets",
+                Logo: Icon.Clock
+            }
+        );
+        ClearCollect(
+            colStatus,
+            {Value: "All"},
+            Choices('Service Desk'.Status)
+        );
+        Set(
+            varTabSelected,
+            1
+        );
+        Set(
+            FontBlueColor,
+            RGBA(
+                12,
+                204,
+                237,
+                1
+            )
+        );
+        Set(
+            FontMainColor,
+            RGBA(
+                77,
+                86,
+                128,
+                1
+            )
+        );
+        Set(
+            varOptionsFilter,
+            "All"
+        )
+    SizeBreakpoints: =[460, 600, 900, 1200, 1450]
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+
