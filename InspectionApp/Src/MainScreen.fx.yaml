@@ -1,0 +1,614 @@
+MainScreen As screen:
+    Height: =App.Height
+
+    MainContainer As groupContainer.verticalAutoLayoutContainer:
+        BorderStyle: =BorderStyle.None
+        Fill: =FirstBackgroundColor
+        Height: =If(MainScreen.Size = 1 || MainScreen.Size = 2, 2000, App.Height)
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        LayoutWrap: =true
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Width: =Parent.Width
+        ZIndex: =1
+
+        HeaderContainer As groupContainer.horizontalAutoLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            BorderStyle: =BorderStyle.None
+            DropShadow: =DropShadow.None
+            Fill: =FirstBackgroundColor
+            FillPortions: =0
+            Height: =100
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+            LayoutMinHeight: =100
+            LayoutMinWidth: =250
+            LayoutMode: =LayoutMode.Auto
+            PaddingLeft: =15
+            PaddingRight: =15
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =Parent.Width
+            ZIndex: =1
+
+            imgUser As image:
+                AlignInContainer: =AlignInContainer.Center
+                BorderColor: =PinkColor
+                BorderThickness: =2
+                Height: =If(MainScreen.Size = 1 || MainScreen.Size = 2, 48, 75)
+                Image: =User().Image
+                ImagePosition: =ImagePosition.Fill
+                LayoutMinHeight: =75
+                RadiusBottomLeft: =50
+                RadiusBottomRight: =50
+                RadiusTopLeft: =50
+                RadiusTopRight: =50
+                Visible: =If(MainScreen.Size = 1, false, true)
+                Width: =If(MainScreen.Size = 1 || MainScreen.Size = 2, 48, 75)
+                ZIndex: =1
+
+            lblTitle As label:
+                AlignInContainer: =AlignInContainer.Stretch
+                Color: =PinkColor
+                FontWeight: =FontWeight.Semibold
+                Size: =If(MainScreen.Size = 1, 15, MainScreen.Size = 2, 25, 35)
+                Text: ="My Inspections"
+                Width: =350
+                X: =
+                ZIndex: =2
+
+            icoInspection As icon.Add:
+                Color: =PinkColor
+                Height: =If(MainScreen.Size = 1 || MainScreen.Size = 2, 32, 48)
+                Icon: =Icon.Add
+                LayoutMinHeight: =48
+                OnSelect: |-
+                    =Navigate(
+                        FormScreen,
+                        ScreenTransition.CoverRight
+                    );
+                    ResetForm(InspectionForm);
+                    NewForm(InspectionForm);
+                    Set(
+                        varInspectionStatus,
+                        "new"
+                    );
+                    Set(
+                        varGalleryDefault,
+                        Blank()
+                    );
+                    Set(
+                        varGalleryDefault,
+                        {}
+                    )
+                Width: =If(MainScreen.Size = 1 || MainScreen.Size = 2, 32, 48)
+                ZIndex: =3
+
+        ItemsContainer As groupContainer.horizontalAutoLayoutContainer:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =20
+            Height: =Parent.Height
+            LayoutMinHeight: =100
+            LayoutMinWidth: =500
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowX: =LayoutOverflow.Scroll
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            LayoutWrap: =true
+            ZIndex: =2
+
+            GalleryContainer As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                BorderThickness: =40
+                Fill: =FirstBackgroundColor
+                FillPortions: =0.6
+                Height: =500
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGap: =5
+                LayoutMinHeight: =500
+                LayoutMinWidth: =If(MainScreen.Size < 3, App.Width, 500)
+                LayoutMode: =LayoutMode.Auto
+                LayoutOverflowX: =LayoutOverflow.Scroll
+                LayoutWrap: =true
+                ZIndex: =1
+
+                SearchContainer As groupContainer.horizontalAutoLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    Fill: =SecondBackgroundColor
+                    FillPortions: =0
+                    Height: =75
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGap: =10
+                    LayoutJustifyContent: =LayoutJustifyContent.End
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    LayoutOverflowX: =LayoutOverflow.Scroll
+                    LayoutOverflowY: =LayoutOverflow.Scroll
+                    PaddingLeft: =15
+                    PaddingRight: =15
+                    PaddingTop: =8
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    imgSearchGlass As image:
+                        Height: =35
+                        Image: =searchGlass
+                        Width: =35
+                        ZIndex: =1
+
+                    txtSearchInspection As text:
+                        BorderStyle: =BorderStyle.None
+                        Color: =RGBA(103, 104, 106, 1)
+                        Default: =""
+                        Fill: =RGBA(0, 0, 0, 1)
+                        Height: =50
+                        HintText: ="Search for Inspection"
+                        HoverColor: =RGBA(103, 104, 106, 1)
+                        HoverFill: =RGBA(0, 0, 0, 1)
+                        RadiusBottomLeft: =25
+                        RadiusBottomRight: =25
+                        RadiusTopLeft: =25
+                        RadiusTopRight: =25
+                        Width: =Parent.Width - 80
+                        ZIndex: =2
+
+                "galInspections As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    Default: =varGalleryDefault
+                    DelayItemLoading: =true
+                    Fill: =FirstBackgroundColor
+                    Height: =Parent.Height - 80
+                    Items: |-
+                        =/*If(
+                            txtSearchInspection.Text = "",
+                            Inspections,
+                            Filter(
+                                Inspections,
+                                StartsWith(
+                                    Title,
+                                    txtSearchInspection.Text
+                                )
+                            )
+                        )*/
+                        Filter(
+                            Inspections,
+                            (txtSearchInspection.Text = "") || ( StartsWith(
+                                Title,
+                                txtSearchInspection.Text
+                            ))
+                        )
+                    Layout: =Layout.Vertical
+                    LayoutMinHeight: =287
+                    LayoutMinWidth: =320
+                    LoadingSpinner: =LoadingSpinner.Data
+                    ShowScrollbar: =false
+                    TemplateFill: =If(ThisItem.IsSelected,  FirstBackgroundColor, SecondBackgroundColor)
+                    TemplatePadding: =0
+                    TemplateSize: =Parent.Height*0.28
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    imgGalery As image:
+                        DisplayMode: =DisplayMode.Disabled
+                        Height: =If(MainScreen.Size = 1, 100, 150)
+                        Image: =First(ThisItem.Attachments).AbsoluteUri
+                        ImagePosition: =ImagePosition.Fill
+                        OnSelect: =Select(Parent)
+                        RadiusBottomLeft: =100
+                        RadiusBottomRight: =100
+                        RadiusTopLeft: =100
+                        RadiusTopRight: =100
+                        Width: =If(MainScreen.Size = 1, 100, 150)
+                        X: =16
+                        Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                        ZIndex: =1
+
+                    lblGalTitle As label:
+                        Color: =FirstFontColor
+                        FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                        Height: =49
+                        OnSelect: =Select(Parent)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =ThisItem.Title
+                        VerticalAlign: =VerticalAlign.Top
+                        Width: =269
+                        X: =If(MainScreen.Size = 1, 146 ,196)
+                        Y: =36
+                        ZIndex: =2
+
+                    lblSubtitle As label:
+                        Color: =FirstFontColor
+                        FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                        Height: =32
+                        OnSelect: =Select(Parent)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =ThisItem.Subtitle
+                        VerticalAlign: =VerticalAlign.Top
+                        Width: =124
+                        X: =If(MainScreen.Size = 1, 146 ,196)
+                        Y: =85
+                        ZIndex: =3
+
+                    Label1 As label:
+                        Color: =FirstFontColor
+                        FontWeight: =FontWeight.Semibold
+                        OnSelect: =Select(Parent)
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        Text: =ThisItem.Status.Value
+                        X: =If(MainScreen.Size = 1, 183 ,233)
+                        Y: =116
+                        ZIndex: =4
+
+                    Rectangle1 As rectangle:
+                        Fill: |-
+                            =If(
+                                ThisItem.Status.Value = "Pending",
+                                RGBA(
+                                    246,
+                                    88,
+                                    16,
+                                    1
+                                ),
+                                ThisItem.Status.Value = "Completed",
+                                RGBA(
+                                    54,
+                                    176,
+                                    75,
+                                    1
+                                ),
+                                ThisItem.Status.Value = "New",
+                                RGBA(
+                                    0,
+                                    134,
+                                    208,
+                                    1
+                                ),
+                                RGBA(
+                                    240,
+                                    0,
+                                    0,
+                                    1
+                                )
+                            )
+                        Height: =25
+                        OnSelect: =Select(Parent)
+                        Width: =25
+                        X: =If(MainScreen.Size = 1, 146 ,196)
+                        Y: =124
+                        ZIndex: =5
+
+            DetailsContainer As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =Parent.Height
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutMinHeight: =100
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                LayoutWrap: =true
+                ZIndex: =2
+
+                imgDetails As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    BorderStyle: =BorderStyle.None
+                    DropShadow: =DropShadow.None
+                    Fill: =FirstBackgroundColor
+                    FillPortions: =0.7
+                    Height: =250
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =Parent.Width
+                    LayoutMode: =LayoutMode.Auto
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                    "galImages As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+                        AlignInContainer: =AlignInContainer.SetByContainer
+                        BorderStyle: =BorderStyle.None
+                        DelayItemLoading: =true
+                        Height: =Parent.Height
+                        Items: =galInspections.Selected.Attachments
+                        LayoutMinHeight: =200
+                        LayoutMinWidth: =320
+                        LoadingSpinner: =LoadingSpinner.Data
+                        ShowNavigation: =true
+                        TemplatePadding: =0
+                        TemplateSize: =275
+                        Width: =Parent.Width
+                        ZIndex: =1
+
+                        galImagesIMG As image:
+                            Height: =200
+                            Image: =ThisItem.AbsoluteUri
+                            ImagePosition: =ImagePosition.Fill
+                            OnSelect: =Select(Parent)
+                            Width: =225
+                            X: =24
+                            Y: =16
+                            ZIndex: =1
+
+                InformationContainer As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    Width: =Parent.Width
+                    ZIndex: =2
+
+                    GalleryInfoContainer As groupContainer.verticalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        Fill: =FirstBackgroundColor
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingLeft: =50
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        ZIndex: =1
+
+                        ContainerLabel1 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            Fill: =FirstBackgroundColor
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =10
+                            LayoutMinHeight: =45
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =1
+
+                            imgIco1 As image:
+                                Height: =25
+                                Image: ='right-arrow'
+                                Width: =25
+                                ZIndex: =1
+
+                            lblInfoText1 As label:
+                                Color: =FirstFontColor
+                                FillPortions: =1
+                                Size: =15
+                                Text: =galInspections.Selected.Title
+                                ZIndex: =2
+
+                        ContainerLabel2 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            Fill: =FirstBackgroundColor
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =10
+                            LayoutMinHeight: =45
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =2
+
+                            Rectangle2 As rectangle:
+                                Fill: |-
+                                    =If(
+                                        galInspections.Selected.Status.Value = "Pending",
+                                        RGBA(
+                                            246,
+                                            88,
+                                            16,
+                                            1
+                                        ),
+                                        galInspections.Selected.Status.Value = "Completed",
+                                        RGBA(
+                                            54,
+                                            176,
+                                            75,
+                                            1
+                                        ),
+                                        galInspections.Selected.Status.Value = "New",
+                                        RGBA(
+                                            0,
+                                            134,
+                                            208,
+                                            1
+                                        ),
+                                        RGBA(
+                                            240,
+                                            0,
+                                            0,
+                                            1
+                                        )
+                                    )
+                                Height: =25
+                                Width: =25
+                                ZIndex: =1
+
+                            lblInfoText2 As label:
+                                Color: =FirstFontColor
+                                FillPortions: =1
+                                Size: =15
+                                Text: =galInspections.Selected.Status.Value
+                                ZIndex: =2
+
+                        ContainerLabel3 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            Fill: =FirstBackgroundColor
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =10
+                            LayoutMinHeight: =45
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =3
+
+                            imgIco3 As image:
+                                Height: =25
+                                Image: =calendar
+                                Width: =25
+                                ZIndex: =1
+
+                            lblInfoText3 As label:
+                                Color: =FirstFontColor
+                                FillPortions: =1
+                                Size: =15
+                                Text: =galInspections.Selected.DateOfInspection
+                                ZIndex: =2
+
+                        ContainerLabel4 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            Fill: =FirstBackgroundColor
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =10
+                            LayoutMinHeight: =45
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =4
+
+                            imgIco4 As image:
+                                Height: =25
+                                Image: =pin
+                                Width: =25
+                                ZIndex: =1
+
+                            lblInfoText4 As label:
+                                Color: =FirstFontColor
+                                FillPortions: =1
+                                Size: =15
+                                Text: =galInspections.Selected.Street & ", " & galInspections.Selected.'Postal Code' & ", " & galInspections.Selected.City
+                                Width: =250
+                                ZIndex: =2
+
+                        ContainerLabel5 As groupContainer.horizontalAutoLayoutContainer:
+                            BorderColor: =RGBA(0, 0, 0, 0)
+                            BorderStyle: =BorderStyle.None
+                            Fill: =FirstBackgroundColor
+                            LayoutAlignItems: =LayoutAlignItems.Center
+                            LayoutGap: =10
+                            LayoutMinHeight: =70
+                            LayoutMinWidth: =250
+                            LayoutMode: =LayoutMode.Auto
+                            RadiusBottomLeft: =0
+                            RadiusBottomRight: =0
+                            RadiusTopLeft: =0
+                            RadiusTopRight: =0
+                            ZIndex: =5
+
+                            imgIco5 As image:
+                                Height: =25
+                                Image: =notepad
+                                Width: =25
+                                ZIndex: =1
+
+                            lblInfoText5 As label:
+                                Color: =FirstFontColor
+                                FillPortions: =1
+                                Size: =15
+                                Text: =galInspections.Selected.Notes
+                                ZIndex: =2
+
+                    MapContainer As groupContainer.horizontalAutoLayoutContainer:
+                        BorderStyle: =BorderStyle.None
+                        Fill: =FirstBackgroundColor
+                        FillPortions: =0.7
+                        LayoutMinHeight: =100
+                        LayoutMinWidth: =250
+                        LayoutMode: =LayoutMode.Auto
+                        PaddingRight: =30
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        ZIndex: =2
+
+                        HtmlText1 As htmlViewer:
+                            Height: =Parent.Height
+                            HtmlText: |-
+                                ="<iframe src=""""https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2563.9839414261705!2d22.682159300000002!3d50.011656200000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473c9bc4a059d51d%3A0xa2f591dab9efb3ab!2sosiedle%20Wojska%20Polskiego%2C%2037-500%20Jaros%C5%82aw!5e0!3m2!1spl!2spl!4v1705412412842!5m2!1spl!2spl"""" width=""""600"""" height=""""450"""" style=""""border:0;"""" allowfullscreen="""""""" loading=""""lazy"""" referrerpolicy=""""no-referrer-when-downgrade""""></iframe>"
+                            Width: =Parent.Width - 33
+                            ZIndex: =2
+
+                ButtonContainer As groupContainer.verticalAutoLayoutContainer:
+                    BorderStyle: =BorderStyle.None
+                    Fill: =FirstBackgroundColor
+                    FillPortions: =0
+                    Height: =125
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutDirection: =LayoutDirection.Vertical
+                    LayoutJustifyContent: =LayoutJustifyContent.End
+                    LayoutMinHeight: =100
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =30
+                    PaddingLeft: =15
+                    RadiusBottomLeft: =0
+                    RadiusBottomRight: =0
+                    RadiusTopLeft: =0
+                    RadiusTopRight: =0
+                    ZIndex: =3
+
+                    btnContinueInspect As button:
+                        Color: =FirstFontColor
+                        Fill: =PinkColor
+                        HoverFill: =ColorFade(PinkColor, -20%)
+                        OnSelect: |-
+                            =Navigate(
+                                FormScreen,
+                                ScreenTransition.CoverRight
+                            );
+                            ViewForm(InspectionForm);
+                            If(
+                                galInspections.Selected.Status.Value = "Completed",
+                                Set(
+                                    varInspectionStatus,
+                                    "completed"
+                                ),
+                                Set(
+                                    varInspectionStatus,
+                                    "edit"
+                                )
+                            )
+                        PressedFill: =ColorFade(PinkColor, -20%)
+                        Text: =If(galInspections.Selected.Status.Value = "Completed", "Check Inspection", "Continue Inspection")
+                        Width: =Parent.Width - 80
+                        ZIndex: =1
+
+    Label3 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Text: =GalleryContainer.Width
+        X: =168
+        Y: =24
+        ZIndex: =2
+

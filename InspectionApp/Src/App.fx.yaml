@@ -1,0 +1,52 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |-
+        =Set(
+            FirstBackgroundColor,
+            RGBA(
+                39,
+                39,
+                39,
+                1
+            )
+        );
+        Set(
+            PinkColor,
+            RGBA(
+                203,
+                46,
+                126,
+                1
+            )
+        );
+        Set(
+            FirstFontColor,
+            RGBA(
+                203,
+                197,
+                203,
+                1
+            )
+        );
+        Set(
+            SecondBackgroundColor,
+            RGBA(
+                59,
+                59,
+                59,
+                1
+            )
+        );
+        ClearCollect(
+            colInspections,
+            Inspections
+        )
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+
