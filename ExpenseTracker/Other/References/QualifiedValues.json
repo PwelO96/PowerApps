@@ -1,0 +1,37 @@
+{
+  "QualifiedValues": [
+    {
+      "Kind": "default.cds_cr304_expenseinformation_forms",
+      "Namespace": "Expense Information (Forms)",
+      "Values": {
+        "Information": "c8f1a2b7-0b62-4c5c-be9b-b3995d742dca"
+      }
+    },
+    {
+      "Kind": "default.cds_cr304_expensereport_forms",
+      "Namespace": "ExpenseReports (Forms)",
+      "Values": {
+        "Information": "8e1f8fe9-5a86-4642-a1dd-f38aee3733e0"
+      }
+    },
+    {
+      "Kind": "default.cds_cr304_expensetable_forms",
+      "Namespace": "ExpenseTables (Forms)",
+      "Values": {
+        "Information": "28112bb7-1610-42d4-84f1-3d2e559cda6d"
+      }
+    },
+    {
+      "Kind": "default.cds_transactioncurrency_forms",
+      "Namespace": "Currencies (Forms)",
+      "Values": {
+        "Information": "b56b6d35-1e69-436b-ba86-78127d36e8aa"
+      }
+    },
+    {
+      "Kind": "default.cds_duplicaterecord_forms",
+      "Namespace": "Duplicate Records (Forms)",
+      "Values": {}
+    }
+  ]
+}

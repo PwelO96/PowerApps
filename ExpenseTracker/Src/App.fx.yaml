@@ -1,0 +1,48 @@
+App As appinfo:
+    BackEnabled: =true
+    OnStart: |-
+        =ClearCollect(
+            colTabs,
+            {Name: "OPEN"},
+            {Name: "PENDING"},
+            {Name: "APPROVED"},
+            {Name: "REJECTED"}
+        );
+        ClearCollect(
+            ColExpenseInformation,
+            'Expense Information'
+        );
+        ClearCollect(
+            colCostCenter,
+            Choices(ExpenseReports.CostCenter)
+        );
+        ClearCollect(
+            colCategory,
+            Choices(ColExpenseInformation.Category)
+        );
+        ClearCollect(
+            colExpenseStatus,
+            {Name: "ALL"},
+            colTabs
+        );
+        Set(
+            varGalAll,
+            "ALL"
+        );
+        Set(
+            varGalButtons,
+            Blank()
+        );
+        Set(
+            varSort,
+            SortOrder.Ascending
+        );
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

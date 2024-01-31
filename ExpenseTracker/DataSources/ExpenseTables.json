@@ -1,0 +1,146 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr304_expensetables",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr304_expensetable",
+    "MaxGetRowsCount": 500,
+    "Name": "ExpenseTables",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr304_comment": "Comment",
+      "cr304_costcentre": "CostCentre",
+      "cr304_enddate": "EndDate",
+      "cr304_expenseid": "ExpenseID",
+      "cr304_expensename": "ExpenseName",
+      "cr304_expensestatus": "ExpenseStatus",
+      "cr304_expensetable_AsyncOperations": "System Jobs",
+      "cr304_expensetable_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr304_expensetable_DuplicateBaseRecord": "Duplicate Records (cr304_expensetable_DuplicateBaseRecord)",
+      "cr304_expensetable_DuplicateMatchingRecord": "Duplicate Records (cr304_expensetable_DuplicateMatchingRecord)",
+      "cr304_expensetable_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr304_expensetable_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr304_expensetable_ProcessSession": "Process Sessions",
+      "cr304_expensetable_SyncErrors": "Sync Errors",
+      "cr304_expensetableid": "ExpenseTable",
+      "cr304_startdate": "StartDate",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "ExpenseTables",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "ExpenseTables (Views)",
+    "Name": "_cr304_expensetable_views",
+    "RelatedEntityName": "ExpenseTables",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "18b35574-76e9-4ab6-932e-ed9ed533b2e5": "ExpenseTable Lookup View",
+      "5dddf59a-fdd0-4f41-ae84-41bf331525c4": "ExpenseTable Advanced Find View",
+      "63d5f943-ddcb-42b3-80a4-4ea78a67788d": "Active ExpenseTables",
+      "899e28ad-e874-44f2-8451-8448b6cfc90e": "Inactive ExpenseTables",
+      "dd5adeea-81c3-4a6b-a80c-590f34061c16": "ExpenseTable Associated View"
+    }
+  },
+  {
+    "DisplayName": "CostCentre (ExpenseTables)",
+    "Name": "cr304_expensetable_cr304_costcentre",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Intel",
+      "811670001": "Tesla",
+      "811670002": "Microsoft"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_costcentre",
+        "OptionSetReferenceEntityName": "ExpenseTables"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_costcentre",
+    "RelatedEntityName": "ExpenseTables",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "ExpenseStatus (ExpenseTables)",
+    "Name": "cr304_expensetable_cr304_expensestatus",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Pending",
+      "811670001": "Approved",
+      "811670002": "Rejected",
+      "811670003": "Open"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_expensestatus",
+        "OptionSetReferenceEntityName": "ExpenseTables"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_expensestatus",
+    "RelatedEntityName": "ExpenseTables",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (ExpenseTables)",
+    "Name": "cr304_expensetable_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "ExpenseTables"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "ExpenseTables",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (ExpenseTables)",
+    "Name": "cr304_expensetable_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "ExpenseTables"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "ExpenseTables",
+    "Type": "OptionSetInfo"
+  }
+]

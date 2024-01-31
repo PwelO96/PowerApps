@@ -1,0 +1,132 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr304_expenseinformations",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr304_expenseinformation",
+    "MaxGetRowsCount": 500,
+    "Name": "Expense Information",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr304_category": "Category",
+      "cr304_description": "Description",
+      "cr304_expenseinfoid": "ExpenseInfo ID",
+      "cr304_expenseinformation_AsyncOperations": "System Jobs",
+      "cr304_expenseinformation_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr304_expenseinformation_DuplicateBaseRecord": "Duplicate Records (cr304_expenseinformation_DuplicateBaseRecord)",
+      "cr304_expenseinformation_DuplicateMatchingRecord": "Duplicate Records (cr304_expenseinformation_DuplicateMatchingRecord)",
+      "cr304_expenseinformation_FileAttachments": "FileAttachments",
+      "cr304_expenseinformation_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr304_expenseinformation_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr304_expenseinformation_ProcessSession": "Process Sessions",
+      "cr304_expenseinformation_SyncErrors": "Sync Errors",
+      "cr304_expenseinformationid": "ExpenseInformationGUID",
+      "cr304_expensereport": "ExpenseReport",
+      "cr304_ExpenseReports": "ExpenseReports",
+      "cr304_name": "Name",
+      "cr304_receipt": "Receipt",
+      "cr304_testimg": "TestIMG",
+      "cr304_testimg2": "TestIMG2",
+      "cr304_total": "Total",
+      "cr304_total_base": "Total (Base)",
+      "cr304_transactiondate": "TransactionDate",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "exchangerate": "Exchange Rate",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "transactioncurrencyid": "Currency",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Expense Information",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Expense Information (Views)",
+    "Name": "_cr304_expenseinformation_views",
+    "RelatedEntityName": "Expense Information",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "6727c5f7-0f89-44d0-9832-7515926a619b": "Inactive Expense Information",
+      "7c86b426-0e5a-4b71-88dd-8533e3d59fca": "Active Expense Information",
+      "8e85c0ef-41a2-41bd-be5c-da30af071c6b": "ExpenseInformation Lookup View",
+      "965a9fd4-dcdb-422b-bdb0-de7e18a402ef": "ExpenseInformation Advanced Find View",
+      "e5be2995-3c4e-455d-8ddc-c30fecf6dbcf": "ExpenseInformation Associated View"
+    }
+  },
+  {
+    "DisplayName": "Category (Expense Information)",
+    "Name": "cr304_expenseinformation_cr304_category",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Food",
+      "811670001": "Transport",
+      "811670002": "Business"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_category",
+        "OptionSetReferenceEntityName": "Expense Information"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_category",
+    "RelatedEntityName": "Expense Information",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Expense Information)",
+    "Name": "cr304_expenseinformation_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Expense Information"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Expense Information",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Expense Information)",
+    "Name": "cr304_expenseinformation_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Expense Information"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Expense Information",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,439 @@
+MainScreen As screen:
+
+    recHeader As rectangle:
+        BorderColor: =RGBA(215, 58, 60, 1)
+        Fill: =RGBA(15, 84, 140, 1)
+        Height: =127
+        Width: =640
+        ZIndex: =1
+
+    galTabs As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(242, 242, 242, 1)
+        Height: =145
+        Items: =colTabs
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateFill: =RGBA(0,0,0,0)
+        TemplateSize: =(Parent.Width/4) - 7
+        Y: =127
+        ZIndex: =1
+
+        htmlTabsBackground As htmlViewer:
+            DisplayMode: =DisplayMode.View
+            Height: =Parent.TemplateHeight
+            HtmlText: |-
+                ="<div style=""background: RGBA(255, 255,255,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width: " &Parent.TemplateWidth - 40&"px; height:"&Parent.TemplateHeight - 25&"px; border-radius: 20px""></div>"
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth - 30
+            X: =14
+            Y: =7
+            ZIndex: =2
+
+        lblTabName As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =58
+            OnSelect: =Select(Parent)
+            Size: =14
+            Text: =ThisItem.Name
+            Width: =137
+            X: =8
+            Y: =7
+            ZIndex: =3
+
+        lblHowMany As label:
+            Align: =Align.Center
+            Height: =70
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: |-
+                =If(
+                    ThisItem.Name = "OPEN",
+                    CountIf(
+                        ExpenseReports,
+                        ExpenseStatus = 'ExpenseStatus (ExpenseReports)'.Open
+                    ),
+                    ThisItem.Name = "PENDING",
+                    CountIf(
+                        ExpenseReports,
+                        ExpenseStatus = 'ExpenseStatus (ExpenseReports)'.Pending
+                    ),
+                    ThisItem.Name = "APPROVED",
+                    CountIf(
+                        ExpenseReports,
+                        ExpenseStatus = 'ExpenseStatus (ExpenseReports)'.Approved
+                    ),
+                    CountIf(
+                        ExpenseReports,
+                        ExpenseStatus = 'ExpenseStatus (ExpenseReports)'.Rejected
+                    )
+                )
+            Width: =60
+            X: =46
+            Y: =45
+            ZIndex: =4
+
+    "galButtons As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =75
+        Items: =colExpenseStatus
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =2
+        TemplateSize: =125
+        Y: =372
+        ZIndex: =1
+
+        htmlBackgroundChoices As htmlViewer:
+            Height: =70
+            HtmlText: |-
+                =If(
+                    ThisItem.IsSelected,
+                    "<div style=""background: RGBA(15,84,140,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width: px; height: 55px; border-radius: 20px""></div>",
+                    "<div style=""background: RGBA(255, 255,255,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width: px; height: 55px; border-radius: 20px""></div>"
+                )
+            OnSelect: =Select(Parent)
+            Width: =lblTabName2.Width + 15
+            ZIndex: =1
+
+        lblTabName2 As label:
+            Align: =Align.Center
+            AutoHeight: =true
+            Color: =If(ThisItem.IsSelected, RGBA(255, 255, 255, 1), RGBA(50, 49, 48, 1))
+            FontWeight: =FontWeight.Semibold
+            Height: =32
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =115
+            X: =8
+            Y: =22
+            ZIndex: =2
+
+        btnGalButtons As button:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(0,0,0,0)
+            Height: =67
+            HoverFill: =RGBA(0,0,0,0)
+            OnSelect: |-
+                =If(
+                    ThisItem.Name = "OPEN",
+                    Set(
+                        varGalButtons,
+                        'ExpenseStatus (ExpenseReports)'.Open
+                    ) && Set(
+                        varGalAll,
+                        Blank()
+                    ),
+                    ThisItem.Name = "APPROVED",
+                    Set(
+                        varGalButtons,
+                        'ExpenseStatus (ExpenseReports)'.Approved
+                    ) && Set(
+                        varGalAll,
+                        Blank()
+                    ),
+                    ThisItem.Name = "REJECTED",
+                    Set(
+                        varGalButtons,
+                        'ExpenseStatus (ExpenseReports)'.Rejected
+                    ) && Set(
+                        varGalAll,
+                        Blank()
+                    ),
+                    ThisItem.Name = "PENDING",
+                    Set(
+                        varGalButtons,
+                        'ExpenseStatus (ExpenseReports)'.Pending
+                    ) && Set(
+                        varGalAll,
+                        Blank()
+                    ),
+                    ThisItem.Name = "ALL",
+                    Set(
+                        varGalAll,
+                        "ALL"
+                    ) && Set(
+                        varGalButtons,
+                        Blank()
+                    )
+                )
+            PressedColor: =RGBA(0,0,0,1)
+            PressedFill: =RGBA(0,0,0,0)
+            Size: =24
+            Text: =""
+            Visible: =false
+            Width: =125
+            ZIndex: =3
+
+    "galExpenses As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =666
+        Items: |-
+            =Sort(
+                If(
+                    varGalButtons = Blank(),
+                    Filter(
+                        ExpenseReports,
+                        varGalAll = "ALL"
+                    ),
+                    Filter(
+                        ExpenseReports,
+                        varGalButtons = ExpenseStatus
+                    )
+                ),
+                EndDate,
+                varSort
+            )
+            /*Sort(
+                Filter(
+                    ExpenseReports,
+                    IsBlank(varGalButtons) || ExpenseStatus = varGalButtons
+                ),
+                EndDate,
+                varSort
+            )*/// DELEGATION WARNING
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
+        TemplatePadding: =10
+        TemplateSize: =200
+        Y: =458
+        ZIndex: =1
+
+        htmlExpenseBackground As htmlViewer:
+            DisplayMode: =DisplayMode.View
+            Height: =Parent.TemplateHeight
+            HtmlText: |-
+                ="<div style=""background: RGBA(15,84,140,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width:"& Parent.TemplateWidth - 20 & "px; height:"& Parent.TemplateHeight -20 &"px; border-radius: 20px""></div>"
+            OnSelect: =Select(Parent)
+            Width: =620
+            Y: =5
+            ZIndex: =1
+
+        lblExpenseTitle As label:
+            Color: =RGBA(214, 221, 224, 1)
+            Height: =75
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.ExpenseName
+            VerticalAlign: =VerticalAlign.Top
+            Width: =412
+            X: =24
+            Y: =71
+            ZIndex: =2
+
+        lblExpenseDate As label:
+            Color: =RGBA(214, 221, 224, 1)
+            Height: =36
+            OnSelect: =Select(Parent)
+            Size: =15
+            Text: ="📅 " & Text(DateTimeValue(ThisItem.EndDate), "dd/mm/yyyy")
+            Width: =213
+            X: =24
+            Y: =24
+            ZIndex: =3
+
+        lblExpenseCostZero As label:
+            Color: =lblExpenseCost.Color
+            Height: =lblExpenseCost.Height
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: ="$0"
+            Visible: =If(Sum(Filter(ColExpenseInformation, ExpenseReports.'Expense ID' = ThisItem.'Expense ID'), Total) > 0, false, true)
+            Width: =lblExpenseCost.Width
+            X: =lblExpenseCost.X
+            Y: =lblExpenseCost.Y
+            ZIndex: =4
+
+        lblExpenseStatus As label:
+            Align: =Align.Center
+            Color: |-
+                =If(
+                    lblExpenseStatus.Text = "Approved",
+                    RGBA(
+                        54,
+                        176,
+                        75,
+                        1
+                    ),
+                    lblExpenseStatus.Text = "Rejected",
+                    RGBA(
+                        255,
+                        0,
+                        0,
+                        1
+                    ),
+                    lblExpenseStatus.Text = "Pending",
+                    RGBA(
+                        174,
+                        208,
+                        224,
+                        1
+                    ),
+                    RGBA(
+                        255,
+                        191,
+                        0,
+                        1
+                    )
+                )
+            FontWeight: =FontWeight.Semibold
+            Height: =63
+            OnSelect: =Select(Parent)
+            Size: =14
+            Text: =ThisItem.ExpenseStatus
+            Width: =112
+            X: =15
+            Y: =120
+            ZIndex: =6
+
+        lblExpenseCost As label:
+            Color: =RGBA(214, 221, 224, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =92
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: ="$"&Sum(Filter(ColExpenseInformation, ExpenseReports.'Expense ID' = ThisItem.'Expense ID'),Total)
+            Visible: |-
+                =true
+                //If(Value(lblExpenseCost.Text) > 0.01, true, false)
+            Width: =134
+            X: =470
+            Y: =24
+            ZIndex: =7
+
+        Icon1 As icon.Export:
+            Color: =RGBA(214, 221, 224, 1)
+            Height: =48
+            Icon: =Icon.Export
+            OnSelect: =Set(varGalButtonItem, ThisItem); Navigate(ProjectDetailsScreen, ScreenTransition.CoverRight)
+            Width: =48
+            X: =534
+            Y: =127
+            ZIndex: =8
+
+    lblHeaderTitle As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =74
+        Size: =21
+        Text: ="MY EXPENSESS"
+        Width: =265
+        X: =187
+        Y: =26
+        ZIndex: =2
+
+    imgLogo As image:
+        Height: =75
+        Image: =budget
+        ImagePosition: =ImagePosition.Fill
+        Width: =75
+        X: =26
+        Y: =25
+        ZIndex: =3
+
+    icoAddExpense As icon.AddDocument:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =75
+        Icon: =Icon.AddDocument
+        OnSelect: =Set(varCRUDExpense, "new"); Navigate(AddExpenseReportScreen, ScreenTransition.CoverRight)
+        Width: =75
+        X: =536
+        Y: =26
+        ZIndex: =4
+
+    lblTextTip As label:
+        Height: =70
+        Size: =17
+        Text: ="Select expense report to view"
+        Width: =333
+        X: =5
+        Y: =289
+        ZIndex: =6
+
+    icoFilter As icon.Filter:
+        Color: =RGBA(15, 108, 189, 1)
+        Height: =30
+        HoverColor: =Self.Color
+        Icon: =Icon.Filter
+        Width: =30
+        X: =379
+        Y: =309
+        ZIndex: =7
+
+    lblFilter As label:
+        Color: =RGBA(15, 108, 189, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Text: ="FILTER"
+        Width: =79
+        X: =409
+        Y: =289
+        ZIndex: =8
+
+    icoSortByDate As icon.ArrowsUpDown:
+        Color: =RGBA(15, 108, 189, 1)
+        Height: =30
+        HoverColor: =Self.Color
+        Icon: =Icon.Sort
+        Width: =30
+        X: =505
+        Y: =309
+        ZIndex: =9
+
+    lblSortByDate As label:
+        Color: =RGBA(15, 108, 189, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Text: ="DATE"
+        Width: =73
+        X: =535
+        Y: =289
+        ZIndex: =10
+
+    btnFilter As button:
+        Fill: =RGBA(56, 96, 178, 0)
+        Height: =50
+        HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        PressedFill: =RGBA(0,0,0,0)
+        Size: =24
+        Text: =""
+        Width: =100
+        X: =379
+        Y: =299
+        ZIndex: =11
+
+    btnSortByDate As button:
+        Fill: =RGBA(56, 96, 178, 0)
+        Height: =50
+        HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        OnSelect: |-
+            =If(
+                varSort = SortOrder.Ascending,
+                Set(
+                    varSort,
+                    SortOrder.Descending
+                ),
+                Set(
+                    varSort,
+                    SortOrder.Ascending
+                )
+            )
+        PressedFill: =RGBA(0,0,0,0)
+        Size: =24
+        Text: =""
+        Width: =92
+        X: =508
+        Y: =299
+        ZIndex: =12
+
