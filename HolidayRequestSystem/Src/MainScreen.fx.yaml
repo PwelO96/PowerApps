@@ -1,0 +1,90 @@
+MainScreen As screen:
+
+    imgBackground As image:
+        Height: =768
+        Image: =nielimitowane_dni_urlopowe
+        ImagePosition: =ImagePosition.Fill
+        Width: =1033
+        ZIndex: =2
+
+    btnNewFurlough As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: |-
+            =Set(varStatus, "New");
+            Navigate(NewApplication, ScreenTransition.UnCoverRight);
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Text: ="New Furlough"
+        TextColor: =
+        Width: =231
+        X: =1079
+        Y: =358
+        ZIndex: =3
+
+    btnListOfApp As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =15
+        Height: =52
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: =Navigate(FurloughListScreen, ScreenTransition.UnCoverRight)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Text: ="Furlough List"
+        TextColor: =
+        Width: =231
+        X: =1079
+        Y: =454
+        ZIndex: =4
+
+    lblMainTitle As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 121, 187, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =79
+        Size: =27
+        Text: ="Furlough App"
+        Width: =276
+        X: =1057
+        Y: =22
+        ZIndex: =5
+
+    lblVersion As label:
+        Align: =Align.Right
+        Height: =32
+        Size: =8
+        Text: |-
+            ="Version: 0.1"
+        Width: =78
+        X: =1288
+        Y: =736
+        ZIndex: =6
+

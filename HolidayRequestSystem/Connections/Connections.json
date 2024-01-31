@@ -1,0 +1,63 @@
+{
+  "81157293-3e30-4bb1-af4e-0d890e9f64c9": {
+    "appActions": [
+      "MyProfileV2"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1672/1.0.1672.3545/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "81157293-3e30-4bb1-af4e-0d890e9f64c9"
+  },
+  "c1077cb8-bf2b-427d-85b7-f0751e5a3596": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1670/1.0.1670.3526/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://1kcr3t.sharepoint.com/sites/FurloughApp": {
+        "dataSources": {
+          "EmployeesList": {
+            "tableName": "5a66d024-78bd-4a77-a618-36ed5506ddc7"
+          },
+          "EmployessBossList": {
+            "tableName": "91a43b1c-a28a-4cd8-b207-04d182a00109"
+          },
+          "FurloughList": {
+            "tableName": "1452ce4b-8d59-4cb2-aa00-c1d63717a5d6"
+          },
+          "TypeOfFurlough": {
+            "tableName": "a1878009-723d-488b-b836-2b7f586ff5bb"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "FurloughList",
+      "EmployeesList",
+      "EmployessBossList",
+      "TypeOfFurlough"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "c1077cb8-bf2b-427d-85b7-f0751e5a3596"
+  }
+}

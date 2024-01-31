@@ -1,0 +1,588 @@
+FurloughListScreen As screen:
+
+    "gal_furloughLIst As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =454
+        Items: |-
+            =SortByColumns(
+                AddColumns(
+                    Filter(
+                        colFurloughList,
+                        (IsBlank(DateTo_1.Value) || IsBlank(dateFrom_1.Value)) && (Employee.DisplayName = varCurrentUserProfile.displayName) || (Employee.DisplayName = varCurrentUserProfile.displayName && FromWhenFurlough >= dateFrom_1.Value && UntilFurlough <= DateTo_1.Value)
+                    ),
+                    "ApplicationStatusVal",
+                    ApplicationStatus.Value,
+                    "TypeOfFurloughVal",
+                    TypeOfFurlough.Value
+                ),
+                Switch(
+                    cmbSortFurloughList.Selected.Value,
+                    "Date",
+                    "FromWhenFurlough",
+                    "Application Status",
+                    "ApplicationStatusVal",
+                    "Type of Furlough",
+                    "TypeOfFurloughVal",
+                    "Created"
+                ),
+                SortOrder.Descending
+            )
+            //OLD IF
+            /*        If(
+                        IsBlank(DateTo_1.Value) || IsBlank(dateFrom_1.Value),
+                        Filter(
+                            colFurloughList,
+                            Employee.DisplayName = varCurrentUserProfile.displayName
+                        ),
+                        Filter(
+                            colFurloughList,
+                            Employee.DisplayName = varCurrentUserProfile.displayName && FromWhenFurlough >= dateFrom_1.Value && UntilFurlough <= DateTo_1.Value
+                        )
+                    )*/
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Min(165, Self.Height - 60)
+        Width: =1268
+        X: =49
+        Y: =292
+        ZIndex: =1
+
+        recBackground As rectangle:
+            Fill: =RGBA(128, 128, 128, .12)
+            Height: =155
+            Width: =1264
+            Y: =12
+            ZIndex: =1
+
+        lblFurliughToDate As label:
+            FontWeight: =FontWeight.Normal
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: =ThisItem.UntilFurlough
+            Width: =144
+            X: =152
+            Y: =47
+            ZIndex: =2
+
+        lblFurliughFromDate As label:
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =13
+            Text: =ThisItem.FromWhenFurlough
+            Width: =136
+            X: =152
+            Y: =12
+            ZIndex: =3
+
+        lblFurloughFromText As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =36
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Furlough from: "
+            Width: =136
+            X: =12
+            Y: =12
+            ZIndex: =4
+
+        lblFurloughToText As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =36
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Furlough To:"
+            Width: =136
+            X: =12
+            Y: =47
+            ZIndex: =5
+
+        lblFurloughTypeInfo As label:
+            Align: =Align.Center
+            BorderColor: |-
+                =If(
+                    lblFurloughTypeInfo.Text = "Normal",
+                    RGBA(
+                        255,
+                        101,
+                        0,
+                        .7
+                    ),
+                    lblFurloughTypeInfo.Text = "Request",
+                    RGBA(
+                        246,
+                        88,
+                        16,
+                        .7
+                    ),
+                    lblFurloughTypeInfo.Text = "Unpaid",
+                    RGBA(
+                        255,
+                        255,
+                        255,
+                        .7
+                    )
+                )
+            BorderThickness: =1
+            Color: |-
+                =RGBA(255,255,255,1)
+                
+                /*If(
+                    lblFurloughTypeInfo.Text = "Normal",
+                    RGBA(
+                        255,
+                        101,
+                        0,
+                        1
+                    ),
+                    lblFurloughTypeInfo.Text = "Request",
+                    RGBA(
+                        246,
+                        88,
+                        16,
+                        1
+                    ),
+                    lblFurloughTypeInfo.Text = "Unpaid",
+                    RGBA(
+                        255,
+                        255,
+                        255,
+                        1
+                    )
+                )*/
+            Fill: |-
+                =If(
+                    lblFurloughTypeInfo.Text = "Normal",
+                    RGBA(
+                        255,
+                        101,
+                        0,
+                        .7
+                    ),
+                    lblFurloughTypeInfo.Text = "Request",
+                    RGBA(
+                        246,
+                        30,
+                        16,
+                        .7
+                    ),
+                    lblFurloughTypeInfo.Text = "Unpaid",
+                    RGBA(
+                        168,
+                        0,
+                        0,
+                        .7
+                    )
+                )
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.TypeOfFurlough.Value
+            Width: =90
+            X: =152
+            Y: =88
+            ZIndex: =6
+
+        lblFurloughTypeText As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =36
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Furlough type:"
+            Width: =136
+            X: =12
+            Y: =83
+            ZIndex: =7
+
+        lblFurloughStatusText As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            OnSelect: =Select(Parent)
+            Text: |-
+                ="Application status:"
+            Width: =173
+            X: =12
+            Y: =125
+            ZIndex: =8
+
+        lblFurloughStatusInfo As label:
+            Align: =Align.Center
+            BorderColor: |-
+                =If(
+                    lblFurloughStatusInfo.Text = "Draft",
+                    RGBA(
+                        149,
+                        149,
+                        149,
+                        .7
+                    ),
+                    lblFurloughStatusInfo.Text = "Accepted",
+                    RGBA(
+                        58,
+                        216,
+                        57,
+                        .7
+                    ),
+                    lblFurloughStatusInfo.Text = "Approve",
+                    RGBA(
+                        137,
+                        160,
+                        209,
+                        .7
+                    ),
+                    RGBA(
+                        255,
+                        0,
+                        0,
+                        .7
+                    )
+                )
+            BorderThickness: =1
+            Color: =RGBA(255,255,255,1)
+            Fill: |-
+                =If(
+                    lblFurloughStatusInfo.Text = "Draft",
+                    RGBA(
+                        149,
+                        149,
+                        149,
+                        .7
+                    ),
+                    lblFurloughStatusInfo.Text = "Accepted",
+                    RGBA(
+                        58,
+                        216,
+                        57,
+                        .7
+                    ),
+                    lblFurloughStatusInfo.Text = "Approve",
+                    RGBA(
+                        137,
+                        160,
+                        209,
+                        .7
+                    ),
+                    RGBA(
+                        255,
+                        0,
+                        0,
+                        .7
+                    )
+                )
+            FontWeight: =FontWeight.Semibold
+            Height: =31
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.ApplicationStatus.Value
+            Width: =90
+            X: =185
+            Y: =125
+            ZIndex: =9
+
+        lblFurloughDaysText As label:
+            Align: =Align.Center
+            Color: =RGBA(151, 0, 0, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =57
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: ="Furlough days"
+            Width: =193
+            X: =1014
+            Y: =12
+            ZIndex: =10
+
+        lblFurloughDaysInfo As label:
+            Align: =Align.Center
+            Color: =RGBA(151, 0, 0, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =50
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: =ThisItem.FurloughDays
+            Width: =95
+            X: =1063
+            Y: =55
+            ZIndex: =11
+
+        btnSendToApprove_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =13
+            Height: =52
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: |-
+                =Set(varCurrentRecord, ThisItem);
+                Set(varStatus, "Draft");
+                Navigate(NewApplication, ScreenTransition.Cover)
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="Edit"
+            TextColor: =
+            Visible: =If(ThisItem.ApplicationStatus.Value = "Draft", true, false)
+            Width: =163
+            X: =1029
+            Y: =104
+            ZIndex: =12
+
+    recHeader_1 As rectangle:
+        Fill: =RGBA(0, 121, 187, .9)
+        Height: =169
+        Width: =1366
+        ZIndex: =2
+
+    lblActiveUser_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =51
+        Text: ="You are logged as " & User().FullName
+        Width: =321
+        X: =918
+        Y: =21
+        ZIndex: =3
+
+    "cmbSortFurloughList As 'Combo box'.pcfdataset":
+        AllowMultiSelect: =false
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =If(varTypeOfFurloughError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+        Height: =40
+        Items: =["Date", "Type of Furlough", "Application Status"]
+        OnChange: |-
+            =Set(varStartToggle, false);
+            Set(varStartToggle, true)
+        OnSelect: =false
+        PCFTeamsTheme: ="default"
+        Text: ="Select Sort"
+        Visible: =true
+        Width: =320
+        X: =24
+        Y: =210
+        ZIndex: =5
+
+        Value1 As pcfDataField.textualColumn:
+            FieldDisplayName: ="Value"
+            FieldName: ="Value"
+            FieldType: ="s"
+            FieldVariantName: ="textualColumn"
+            Order: =2
+            ZIndex: =12
+
+    icoHome As icon.Home:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =52
+        Icon: =Icon.Home
+        OnSelect: =Navigate(MainScreen, ScreenTransition.CoverRight)
+        Width: =71
+        X: =1266
+        Y: =15
+        ZIndex: =9
+
+    lblHeaderTitle As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =56
+        Size: =32
+        Text: ="Furlough List"
+        Width: =305
+        X: =24
+        Y: =19
+        ZIndex: =10
+
+    "dateFrom_1 As 'Date picker'":
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(243,242,241,1)
+        Height: =37
+        IconFill: =
+        OnChange: =
+        PCFTeamsTheme: ="default"
+        TextColor: =
+        Value: =
+        Width: =183
+        X: =902
+        Y: =211
+        ZIndex: =16
+
+    "DateTo_1 As 'Date picker'":
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(243,242,241,1)
+        Height: =40
+        IconFill: =
+        OnChange: =
+        PCFTeamsTheme: ="default"
+        TextColor: =
+        Value: =
+        Width: =183
+        X: =1134
+        Y: =210
+        ZIndex: =17
+
+    ConfirmPopUp_1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =17
+
+        recPopUpGreyConf_1 As rectangle:
+            Fill: =RGBA(166, 166, 166,.5)
+            Height: =768
+            Visible: =varConfirmPopUp1
+            Width: =1366
+            ZIndex: =11
+
+        recPopUpMainConf_1 As rectangle:
+            Fill: =RGBA(187, 221, 140, 1)
+            Height: =393
+            Visible: =varConfirmPopUp1
+            Width: =628
+            X: =352
+            Y: =220
+            ZIndex: =12
+
+        lblConfirmApplication_1 As label:
+            Align: =Align.Center
+            Color: =RGBA(54, 176, 75, 1)
+            FontWeight: =FontWeight.Bold
+            Height: =95
+            Size: =25
+            Text: ="Application added to list"
+            Visible: =varConfirmPopUp1
+            Width: =542
+            X: =395
+            Y: =245
+            ZIndex: =13
+
+        btnConfirmConf_1 As Button:
+            BorderColor: =
+            BorderRadius: =5
+            ButtonType: ='Button.ButtonType'.Primary
+            DisabledBorderColor: =
+            DisabledFillColor: =
+            DisabledTextColor: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(0, 121, 187, 1)
+            Font: =Font.'Open Sans'
+            FontSize: =15
+            Height: =40
+            HoverBorderColor: =
+            HoverFillColor: =
+            HoverTextColor: =
+            OnChange: =false
+            OnSelect: =Set(varConfirmPopUp1, false)
+            PCFTeamsTheme: ="default"
+            PressedBorderColor: =
+            PressedFillColor: =
+            PressedTextColor: =
+            Text: ="OK!"
+            TextColor: =
+            Visible: =varConfirmPopUp1
+            Width: =176
+            X: =578
+            Y: =537
+            ZIndex: =14
+
+        icoConfirm_1 As icon.CheckBadge:
+            Color: =RGBA(54, 176, 75, 1)
+            DisplayMode: =DisplayMode.View
+            Height: =96
+            Icon: =Icon.CheckBadge
+            Visible: =varConfirmPopUp1
+            Width: =111
+            X: =610
+            Y: =353
+            ZIndex: =15
+
+    btnSendToApprove_2 As Button:
+        BorderColor: =
+        BorderRadius: =5
+        ButtonType: ='Button.ButtonType'.Primary
+        DisabledBorderColor: =
+        DisabledFillColor: =
+        DisabledTextColor: =
+        DisplayMode: =DisplayMode.Edit
+        FillColor: =RGBA(0, 121, 187, 1)
+        Font: =Font.'Open Sans'
+        FontSize: =13
+        Height: =37
+        HoverBorderColor: =
+        HoverFillColor: =
+        HoverTextColor: =
+        OnChange: =false
+        OnSelect: |-
+            =Reset(DateTo_1);
+            Reset(dateFrom_1)
+        PCFTeamsTheme: ="default"
+        PressedBorderColor: =
+        PressedFillColor: =
+        PressedTextColor: =
+        Text: ="Reset Dates"
+        TextColor: =
+        Visible: =true
+        Width: =163
+        X: =716
+        Y: =211
+        ZIndex: =18
+
+    lblDueDates As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 134, 208, 1)
+        FontWeight: =FontWeight.Semibold
+        Text: ="Due Dates"
+        X: =1026
+        Y: =169
+        ZIndex: =19
+
+    lblDueDatesFrom As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 134, 208, 1)
+        Text: ="From"
+        X: =902
+        Y: =252
+        ZIndex: =21
+
+    lblDueDatesTo As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 134, 208, 1)
+        Text: ="To"
+        X: =1150
+        Y: =252
+        ZIndex: =22
+
+    lblDueDates_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 134, 208, 1)
+        FontWeight: =FontWeight.Semibold
+        Text: ="Sort By"
+        X: =101
+        Y: =169
+        ZIndex: =23
+

@@ -1,0 +1,143 @@
+"LoadingScreen As screen.'tabletLayout_Success_ver3.0'":
+    OnVisible: =
+
+    iconCircle1 As circle.Circle:
+        X: =632
+        Y: =311
+        ZIndex: =1
+
+    iconCheck1 As icon.Check:
+        Height: =iconCircle1.Height
+        Icon: =Icon.Check
+        PaddingBottom: =Self.PaddingTop
+        PaddingLeft: =Self.PaddingTop
+        PaddingRight: =Self.PaddingTop
+        PaddingTop: =24
+        Width: =iconCircle1.Width
+        X: =632
+        Y: =311
+        ZIndex: =2
+
+    LblSuccessMsg1 As label:
+        Align: =Align.Center
+        AutoHeight: =true
+        Height: =iconCircle1.Height
+        Size: =20
+        Text: ="Loading data..."
+        Width: =Parent.Width * 0.75
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =447
+        ZIndex: =3
+
+    Timer1 As timer:
+        AutoStart: =true
+        Duration: =600
+        OnTimerEnd: |
+            =ClearCollect(
+                colTypeOfFurlough,
+                TypeOfFurlough
+            );
+            ClearCollect(
+                colUserRequest,
+                Filter(
+                    FurloughList,
+                    User().Email = Employee.Email
+                )
+            );
+            ClearCollect(
+                colFurloughList,
+                FurloughList
+            );
+            
+            Set(
+                varErrorPopUp,
+                false
+            );
+            Concurrent(
+                //Showing available days of furlough
+                Set(
+                    varDaysOfFurlough,
+                    LookUp(
+                        EmployeesList,
+                        User().Email = Employee.Email,
+                        VacationDays
+                    )
+                ),
+                //Showing available days of furlough on request
+                Set(
+                    varDaysOfFurloughRequest,
+                    LookUp(
+                        EmployeesList,
+                        User().Email = Employee.Email,
+                        RequestVacationDays
+                    )
+                ),
+                    //Counting days in draft
+                Set(
+                    varDaysInDraft,
+                    Sum(
+                        Filter(
+                            colUserRequest,
+                            ApplicationStatus.Value = "Draft" && TypeOfFurlough.Value = "Normal"
+                        ),
+                        FurloughDays
+                    )
+                ),
+                    //Counting days in draft on request
+                Set(
+                    varDaysInDraftRequest,
+                    Sum(
+                        Filter(
+                            colUserRequest,
+                            ApplicationStatus.Value = "Draft" && TypeOfFurlough.Value = "Request"
+                        ),
+                        FurloughDays
+                    )
+                ),
+                Set(
+                    varCurrentUserProfile,
+                    IfError(
+                        Office365Users.MyProfileV2(),
+                        Office365Users.MyProfileV2()
+                    )
+                )
+            );
+            Set(
+                varCurrentUserClaim,
+                {
+                    '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                    Claims: "i:0#.f|membership|" & varCurrentUserProfile.mail,
+                    Department: "",
+                    DisplayName: varCurrentUserProfile.displayName,
+                    Email: varCurrentUserProfile.mail,
+                    JobTitle: "",
+                    Picture: varCurrentUserProfile.surname
+                }
+            );
+            Concurrent(
+            //Visibility of label days in draft
+                Set(
+                    varDaysInDraftV,
+                    If(
+                        IsBlank(varDaysInDraft),
+                        false,
+                        true
+                    )
+                ),
+            //Visibility of label days in draft on request
+                Set(
+                    varDaysInDraftRequestV,
+                    If(
+                        IsBlank(varDaysInDraftRequest),
+                        false,
+                        true
+                    )
+                )
+            );
+            Navigate(MainScreen);
+        Start: =varStartTimer
+        Visible: =false
+        X: =1164
+        Y: =72
+        ZIndex: =4
+
