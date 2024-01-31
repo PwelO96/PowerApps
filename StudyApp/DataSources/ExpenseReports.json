@@ -1,0 +1,172 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cr304_expensereports",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cr304_expensereport",
+    "MaxGetRowsCount": 500,
+    "Name": "ExpenseReports",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr304_comment": "Comment",
+      "cr304_costcenter": "CostCenter",
+      "cr304_creatoremail": "CreatorEmail",
+      "cr304_enddate": "EndDate",
+      "cr304_expenseid": "Expense ID",
+      "cr304_expenseinformation_ExpenseReports_cr304_e": "Expense Information",
+      "cr304_expensename": "ExpenseName",
+      "cr304_expensereport_AsyncOperations": "System Jobs",
+      "cr304_expensereport_BulkDeleteFailures": "Bulk Delete Failures",
+      "cr304_expensereport_DuplicateBaseRecord": "Duplicate Records (cr304_expensereport_DuplicateBaseRecord)",
+      "cr304_expensereport_DuplicateMatchingRecord": "Duplicate Records (cr304_expensereport_DuplicateMatchingRecord)",
+      "cr304_expensereport_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cr304_expensereport_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cr304_expensereport_ProcessSession": "Process Sessions",
+      "cr304_expensereport_SyncErrors": "Sync Errors",
+      "cr304_expensereportid": "ExpenseReports",
+      "cr304_expensestatus": "ExpenseStatus",
+      "cr304_expensestatus2": "ExpenseStatus2",
+      "cr304_startdate": "StartDate",
+      "cr304_submitdate": "SubmitDate",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "ExpenseReports",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "ExpenseReports (Views)",
+    "Name": "_cr304_expensereport_views",
+    "RelatedEntityName": "ExpenseReports",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "15df3a65-3c97-41a4-a3ca-bad3aafa41b8": "ExpenseReport Lookup View",
+      "21b2b8f2-9ec0-49b6-8094-61b661829b80": "Active ExpenseReports",
+      "a4a45c5c-e9c5-401a-823e-cd813eaa8d76": "ExpenseReport Associated View",
+      "b51b6310-9bb6-44e2-a293-3dd27155493d": "ExpenseReport Advanced Find View",
+      "dd012d92-4274-44c6-893c-1c641e2fded5": "Inactive ExpenseReports"
+    }
+  },
+  {
+    "DisplayName": "CostCenter (ExpenseReports)",
+    "Name": "cr304_expensereport_cr304_costcenter",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Microsoft",
+      "811670001": "Intel",
+      "811670002": "Tesla"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_costcenter",
+        "OptionSetReferenceEntityName": "ExpenseReports"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_costcenter",
+    "RelatedEntityName": "ExpenseReports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "ExpenseStatus (ExpenseReports)",
+    "Name": "cr304_expensereport_cr304_expensestatus",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Open",
+      "811670001": "Pending",
+      "811670002": "Approved",
+      "811670003": "Rejected"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_expensestatus",
+        "OptionSetReferenceEntityName": "ExpenseReports"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_expensestatus",
+    "RelatedEntityName": "ExpenseReports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (ExpenseReports)",
+    "Name": "cr304_expensereport_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "ExpenseReports"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "ExpenseReports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (ExpenseReports)",
+    "Name": "cr304_expensereport_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "ExpenseReports"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "ExpenseReports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "ExpenseStatus2 Choices",
+    "Name": "cr304_expensestatus2choices",
+    "OptionSetInfoNameMapping": {
+      "811670000": "Open",
+      "811670001": "Pending",
+      "811670002": "Approved",
+      "811670003": "Rejected"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr304_expensestatus2",
+        "OptionSetReferenceEntityName": "ExpenseReports"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr304_expensestatus2",
+    "RelatedEntityName": "ExpenseReports",
+    "Type": "OptionSetInfo"
+  }
+]

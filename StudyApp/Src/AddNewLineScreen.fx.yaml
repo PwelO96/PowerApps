@@ -1,0 +1,423 @@
+AddNewLineScreen As screen:
+
+    recHeader_3 As rectangle:
+        BorderColor: =RGBA(215, 58, 60, 1)
+        Fill: =RGBA(15, 84, 140, 1)
+        Height: =127
+        Width: =640
+        ZIndex: =1
+
+    lblHeaderTitle_3 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =74
+        Size: =21
+        Text: =If(varNewLineItem = "new", "CREATE LINE ITEM", "EDIT LINE ITEM")
+        Width: =265
+        X: =187
+        Y: =26
+        ZIndex: =2
+
+    imgLogo_3 As image:
+        Height: =75
+        Image: =budget
+        ImagePosition: =ImagePosition.Fill
+        Width: =75
+        X: =26
+        Y: =25
+        ZIndex: =3
+
+    icoBack_2 As icon.AddDocument:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =75
+        Icon: =Icon.CancelBadge
+        OnSelect: =Navigate(ProjectDetailsScreen, ScreenTransition.UnCoverRight); Reset(AddMediaButton3)
+        Width: =75
+        X: =536
+        Y: =26
+        ZIndex: =4
+
+    inpNameLineItem As text:
+        BorderColor: =If(varNameLineInputError = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Default: =If(varNewLineItem = "new", "", varLineExpenseItem.Name)
+        Fill: =RGBA(240,240,240,1)
+        Height: =45
+        OnChange: =If(IsBlank(inpNameLineItem.Text), Set(varNameLineInputError, true), Set(varNameLineInputError, false))
+        Size: =18
+        Width: =584
+        X: =26
+        Y: =208
+        ZIndex: =5
+
+    conTransactionDate As groupContainer.manualLayoutContainer:
+        BorderColor: =If(varTransactionDateError = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Height: =45
+        Width: =584
+        X: =26
+        Y: =339
+        ZIndex: =6
+
+        "TransactionDate As 'Date picker'":
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(240,240,240,1)
+            FontSize: =15
+            Height: =Parent.Height
+            IconFill: =
+            IconSize: =25
+            MaxDate: =Today() + 30
+            MinDate: =Today()
+            OnChange: =If(TransactionDate.Value = Blank(), Set(varTransactionDateError, true), Set(varTransactionDateError, false))
+            PCFTeamsTheme: ="default"
+            TextColor: =
+            Tooltip: =""
+            Value: =If(varNewLineItem = "new", "", varLineExpenseItem.TransactionDate)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+    conCategory As groupContainer.manualLayoutContainer:
+        BorderColor: =If(varCategoryEmpty= true ,RGBA(255,0,0,1),RGBA(0,0,0,1))
+        BorderThickness: =1
+        Height: =45
+        Width: =584
+        X: =26
+        Y: =601
+        ZIndex: =7
+
+        "cbxCategory As 'Combo box'.pcfdataset":
+            ChevronSize: =21
+            DisplayMode: =DisplayMode.Edit
+            FontSize: =13
+            Height: =Parent.Height
+            Items: =colCategory
+            OnChange: =If(IsBlank(cbxCategory.Selected.Value), Set(varCategoryEmpty, true), Set(varCategoryEmpty, false))
+            PCFTeamsTheme: ="default"
+            Text: =If(varNewLineItem = "new", "", varLineExpenseItem.Category)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+            Value1_1 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Value"
+                FieldName: ="Value"
+                FieldType: ="l"
+                FieldVariantName: ="textualColumn"
+                Order: =1
+                ZIndex: =2
+
+    inpDescription As text:
+        BorderColor: =If(varDescriptionEmpty = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Default: =If(varNewLineItem = "new", "", varLineExpenseItem.Description)
+        Fill: =RGBA(240,240,240,1)
+        Height: =100
+        Mode: =TextMode.MultiLine
+        OnChange: =If(IsBlank(inpDescription.Text), Set(varDescriptionEmpty, true), Set(varDescriptionEmpty, false))
+        PaddingBottom: =10
+        PaddingRight: =10
+        PaddingTop: =10
+        Size: =18
+        Width: =584
+        X: =28
+        Y: =732
+        ZIndex: =8
+
+    inpTotal As text:
+        BorderColor: =If(varTotalInputError = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Default: =If(varNewLineItem = "new", "", varLineExpenseItem.Total)
+        Fill: =RGBA(240,240,240,1)
+        Format: =TextFormat.Number
+        Height: =45
+        OnChange: =If(IsBlank(inpTotal.Text), Set(varTotalInputError, true), Set(varTotalInputError, false))
+        Size: =18
+        Width: =584
+        X: =26
+        Y: =470
+        ZIndex: =9
+
+    lblName_1 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="* Name"
+        Width: =584
+        X: =28
+        Y: =130
+        ZIndex: =10
+
+    lblName_2 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="* Transaction Date"
+        Width: =584
+        X: =28
+        Y: =261
+        ZIndex: =11
+
+    lblName_3 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="* Total($)"
+        Width: =584
+        X: =26
+        Y: =392
+        ZIndex: =12
+
+    lblName_4 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="* Category"
+        Width: =584
+        X: =12
+        Y: =523
+        ZIndex: =13
+
+    lblName_5 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="* Description"
+        Width: =584
+        X: =12
+        Y: =654
+        ZIndex: =14
+
+    btnSubmitForm_1 As button:
+        Fill: =RGBA(15,84,140,1)
+        Height: =70
+        OnSelect: |-
+            =Set(
+                varUploadedIMG,
+                JSON(
+                    imgReceiptLineItem.Image,
+                    JSONFormat.IncludeBinaryData
+                )
+            );
+            If(
+                IsBlank(inpNameLineItem.Text),
+                Set(
+                    varNameLineInputError,
+                    true
+                ),
+                Len(varUploadedIMG) > 1000000,
+                Set(
+                    varBigImageError,
+                    true
+                ),
+                TransactionDate.Value = Blank(),
+                Set(
+                    varTransactionDateError,
+                    true
+                ),
+                IsBlank(inpTotal.Text),
+                Set(
+                    varTotalInputError,
+                    true
+                ),
+                IsBlank(cbxCategory.Selected.Value),
+                Set(
+                    varCategoryEmpty,
+                    true
+                ),
+                IsBlank(inpDescription.Text),
+                Set(
+                    varDescriptionEmpty,
+                    true
+                ),
+                If(
+                    varNewLineItem = "new",
+                    Patch(
+                        'Expense Information',
+                        Defaults('Expense Information'),
+                        {
+                            Name: inpNameLineItem.Text,
+                            TransactionDate: TransactionDate.Value,
+                            Total: Value(inpTotal.Text),
+                            Category: cbxCategory.Selected.Value,
+                            Description: inpDescription.Text,
+                            ExpenseReports: LookUp(
+                                ExpenseReports,
+                                'Expense ID' = varGalButtonItem.'Expense ID'
+                            ),
+                            TestIMG2: JSON(
+                                UploadedImage3.Image,
+                                JSONFormat.IncludeBinaryData
+                            )
+                        }
+                    ),
+                    Patch(
+                        'Expense Information',
+                        LookUp(
+                            'Expense Information',
+                            varLineExpenseItem.'ExpenseInfo ID' = 'ExpenseInfo ID'
+                        ),
+                        {
+                            Name: inpNameLineItem.Text,
+                            TransactionDate: TransactionDate.Value,
+                            Total: Value(inpTotal.Text),
+                            Category: cbxCategory.Selected.Value,
+                            Description: inpDescription.Text,
+                            TestIMG2: JSON(
+                                UploadedImage3.Image,
+                                JSONFormat.IncludeBinaryData
+                            )
+                        }
+                    )
+                )
+            );
+            If(
+                varNameLineInputError = false && varTransactionDateError = false && varTotalInputError = false && varCategoryEmpty = false && varDescriptionEmpty = false && varBigImageError = false,
+                Navigate(
+                    ProjectDetailsScreen,
+                    ScreenTransition.CoverRight
+                ) && Reset(inpNameLineItem) && Reset(TransactionDate) && Reset(inpTotal) && Reset(cbxCategory) && Reset(inpDescription) && Reset(AddMediaButton3)
+            );
+            ClearCollect(
+                ColExpenseInformation,
+                'Expense Information'
+            )
+        Size: =24
+        Text: =If(varNewLineItem = "new", "Add Line Item", "Edit Line Item")
+        Width: =350
+        X: =142
+        Y: =1034
+        ZIndex: =15
+
+    imgReceiptLineItem As image:
+        Height: =165
+        Image: =If(varNewLineItem = "new", UploadedImage3.Image, Substitute(varLineExpenseItem.TestIMG2, """", ""))
+        OnSelect: =
+        Width: =237
+        X: =If(varNewLineItem = "new", 373, 198)
+        Y: =850
+        ZIndex: =16
+
+    conAddReceipt As groupContainer.manualLayoutContainer:
+        BorderThickness: =1
+        DropShadow: =DropShadow.None
+        Fill: =RGBA(0,0,0,1)
+        Height: =56
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Visible: =If(varNewLineItem = "new", true, false)
+        Width: =UploadedImage3.Width
+        X: =26
+        Y: =905
+        ZIndex: =17
+
+        AddReceiptIMG As group:
+            Height: =5
+            Width: =5
+            X: =32
+            Y: =-845
+            ZIndex: =2
+
+            UploadedImage3 As image:
+                Height: =55
+                Image: =If(varNewLineItem = "new", AddMediaButton3.Media, varLineExpenseItem.TestIMG) 
+                ImagePosition: =ImagePosition.Fill
+                Width: =310
+                ZIndex: =3
+
+            AddMediaButton3 As addMedia:
+                ChangePictureText: ="Add Receipt Image"
+                Color: =RGBA(255,255,255, 1)
+                Fill: =RGBA(15,84,140,1)
+                Height: =56
+                OnSelect: =Set(varBigImageError, false)
+                Size: =25
+                Text: ="Add Receipt Image"
+                Width: =310
+                ZIndex: =4
+
+    lblBigItemErrorText As label:
+        Color: =RGBA(255, 0, 0, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =38
+        PaddingLeft: =0
+        Size: =18
+        Text: ="Your receipt image is too big!"
+        Visible: =If(varBigImageError, true, false)
+        Width: =358
+        X: =30
+        Y: =977
+        ZIndex: =18
+
+    btnIMGPreview As button:
+        Fill: =RGBA(15,84,140,0)
+        Height: =imgReceiptLineItem.Height
+        HoverColor: =RGBA(255, 255, 255, 0)
+        HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        OnSelect: =Set(varImagePreview, true)
+        PressedColor: =RGBA(0,0,0,0)
+        PressedFill: =RGBA(0,0,0,0)
+        Size: =24
+        Text: =""
+        Visible: =If(varNewLineItem = "new" || Len(imgReceiptLineItem.Image) < 200, false, true)
+        Width: =imgReceiptLineItem.Width
+        X: =197
+        Y: =850
+        ZIndex: =19
+
+    ImgPrevievPopUp As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =35
+
+        recImgPreviewPopUpBackground As rectangle:
+            Fill: =RGBA(0,0,0,.3)
+            Height: =1136
+            OnSelect: =
+            Visible: =varImagePreview
+            Width: =640
+            ZIndex: =20
+
+        htmImgPreviewBackground As htmlViewer:
+            Height: =860
+            HtmlText: |-
+                ="<div style=""background: RGBA(255, 255,255,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width: 480px; height: 840px; border-radius: 20px""></div>"
+            OnSelect: =
+            Visible: =varImagePreview
+            Width: =490
+            X: =73
+            Y: =117
+            ZIndex: =21
+
+        btnExitPreview As button:
+            Fill: =RGBA(15,84,140,1)
+            Height: =70
+            OnSelect: =Set(varImagePreview, false)
+            RadiusBottomLeft: =25
+            RadiusBottomRight: =25
+            RadiusTopLeft: =25
+            RadiusTopRight: =25
+            Size: =18
+            Text: ="X"
+            Visible: =varImagePreview
+            Width: =150
+            X: =229
+            Y: =869
+            ZIndex: =22
+
+        imgPopUpPreview As image:
+            Height: =637
+            Image: =Substitute(varLineExpenseItem.TestIMG2, """", "")
+            Visible: =varImagePreview
+            Width: =394
+            X: =119
+            Y: =174
+            ZIndex: =23
+

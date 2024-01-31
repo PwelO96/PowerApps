@@ -1,0 +1,266 @@
+AddExpenseReportScreen As screen:
+
+    lblName As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Name"
+        Width: =584
+        X: =21
+        Y: =130
+        ZIndex: =1
+
+    inpName As text:
+        BorderColor: =If(varNameInputError = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Default: =If(varCRUDExpense = "new", "", varGalButtonItem.ExpenseName)
+        Fill: =RGBA(240,240,240,1)
+        Height: =60
+        OnChange: =If(IsBlank(inpName.Text), Set(varNameInputError, true), Set(varNameInputError, false))
+        Size: =18
+        Width: =584
+        X: =28
+        Y: =200
+        ZIndex: =2
+
+    lblStartDate As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Start Date"
+        Width: =584
+        X: =28
+        Y: =297
+        ZIndex: =3
+
+    conStartDate As groupContainer.manualLayoutContainer:
+        BorderThickness: =1
+        Height: =60
+        Width: =584
+        X: =28
+        Y: =367
+        ZIndex: =4
+
+        "dateStartDate As 'Date picker'":
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(240,240,240,1)
+            FontSize: =15
+            Height: =Parent.Height
+            IconFill: =
+            IconSize: =25
+            MaxDate: =Today() + 30
+            MinDate: =Today()
+            PCFTeamsTheme: ="default"
+            TextColor: =
+            Tooltip: =""
+            Value: =If(varCRUDExpense = "new", "", varGalButtonItem.StartDate)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+    lblEndDate As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="End Date"
+        Width: =584
+        X: =28
+        Y: =464
+        ZIndex: =5
+
+    conEndDate As groupContainer.manualLayoutContainer:
+        BorderThickness: =1
+        Height: =60
+        Width: =584
+        X: =28
+        Y: =534
+        ZIndex: =6
+
+        "dateEndDate As 'Date picker'":
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =RGBA(240,240,240,1)
+            FontSize: =15
+            Height: =Parent.Height
+            IconFill: =
+            IconSize: =25
+            MaxDate: =Today() + 30
+            MinDate: =Today()
+            PCFTeamsTheme: ="default"
+            TextColor: =
+            Value: =If(varCRUDExpense = "new", "", varGalButtonItem.EndDate)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+    lblEndDate_1 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Cost Center"
+        Width: =584
+        X: =28
+        Y: =631
+        ZIndex: =7
+
+    conCostCenter As groupContainer.manualLayoutContainer:
+        BorderColor: =If(varCostCenterEmpty = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Height: =60
+        Width: =584
+        X: =28
+        Y: =701
+        ZIndex: =8
+
+        "cbxCostCenter As 'Combo box'.pcfdataset":
+            ChevronSize: =21
+            DisplayMode: =DisplayMode.Edit
+            FontSize: =13
+            Height: =Parent.Height
+            Items: =colCostCenter
+            OnChange: =If(IsBlank(cbxCostCenter.Selected.Value), Set(varCostCenterEmpty, true), Set(varCostCenterEmpty, false))
+            PCFTeamsTheme: ="default"
+            Text: =If(varCRUDExpense = "new", "", varGalButtonItem.CostCenter)
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+            Value1 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Value"
+                FieldName: ="Value"
+                FieldType: ="l"
+                FieldVariantName: ="textualColumn"
+                Order: =1
+                ZIndex: =2
+
+    lblEndDate_2 As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Comment"
+        Width: =584
+        X: =28
+        Y: =798
+        ZIndex: =9
+
+    inpComment As text:
+        BorderColor: =If(varCommentEmpty = true, RGBA(255,0,0,1), RGBA(0, 0, 0, 1))
+        BorderThickness: =1
+        Default: =If(varCRUDExpense = "new", "", varGalButtonItem.Comment)
+        Fill: =RGBA(240,240,240,1)
+        Height: =135
+        Mode: =TextMode.MultiLine
+        OnChange: =If(IsBlank(inpComment.Text), Set(varCommentEmpty, true), Set(varCommentEmpty, false))
+        PaddingBottom: =10
+        PaddingRight: =10
+        PaddingTop: =10
+        Size: =18
+        Width: =584
+        X: =28
+        Y: =868
+        ZIndex: =10
+
+    btnSubmitForm As button:
+        Fill: =RGBA(15,84,140,1)
+        Height: =70
+        OnSelect: |-
+            =If(
+                IsBlank(inpName.Text),
+                Set(
+                    varNameInputError,
+                    true
+                ),
+                IsBlank(cbxCostCenter.Selected.Value),
+                Set(
+                    varCostCenterEmpty,
+                    true
+                ),
+                IsBlank(inpComment.Text),
+                Set(
+                    varCommentEmpty,
+                    true
+                ),
+                If(
+                    varCRUDExpense = "new",
+                    Patch(
+                        ExpenseReports,
+                        Defaults(ExpenseReports),
+                        {
+                            ExpenseName: inpName.Text,
+                            Comment: inpComment.Text,
+                            StartDate: DateValue(dateStartDate.Value),
+                            EndDate: DateValue(dateEndDate.Value),
+                            CostCenter: cbxCostCenter.Selected.Value,
+                            CreatorEmail: User().Email
+                        }
+                    ),
+                    Patch(
+                        ExpenseReports,
+                        LookUp(
+                            ExpenseReports,
+                            varGalButtonItem.'Expense ID' = 'Expense ID'
+                        ),
+                        {
+                            ExpenseName: inpName.Text,
+                            Comment: inpComment.Text,
+                            StartDate: DateValue(dateStartDate.Value),
+                            EndDate: DateValue(dateEndDate.Value),
+                            CostCenter: cbxCostCenter.Selected.Value
+                        }
+                    )
+                )
+            );
+            If(
+                varNameInputError = false && varCostCenterEmpty = false && varCommentEmpty = false,
+                Navigate(
+                    MainScreen,
+                    ScreenTransition.CoverRight
+                ) && Reset(inpName) && Reset(inpComment) && Reset(dateStartDate) && Reset(dateEndDate) && Reset(cbxCostCenter)
+            )
+        Size: =24
+        Text: =If(varCRUDExpense = "new", "Add Report", "Edit Report")
+        Width: =350
+        X: =142
+        Y: =1034
+        ZIndex: =11
+
+    recHeader_1 As rectangle:
+        BorderColor: =RGBA(215, 58, 60, 1)
+        Fill: =RGBA(15, 84, 140, 1)
+        Height: =127
+        Width: =640
+        ZIndex: =12
+
+    lblHeaderTitle_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =74
+        Size: =21
+        Text: =If(varCRUDExpense = "new", "ADD REPORT", "EDIT REPORT")
+        Width: =265
+        X: =187
+        Y: =26
+        ZIndex: =13
+
+    imgLogo_1 As image:
+        Height: =75
+        Image: =budget
+        ImagePosition: =ImagePosition.Fill
+        Width: =75
+        X: =26
+        Y: =25
+        ZIndex: =14
+
+    icoBack As icon.AddDocument:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =75
+        Icon: =Icon.CancelBadge
+        OnSelect: =If(varCRUDExpense = "new", Navigate(MainScreen, ScreenTransition.UnCoverRight), Navigate(ProjectDetailsScreen, ScreenTransition.UnCoverRight))
+        Width: =75
+        X: =536
+        Y: =26
+        ZIndex: =15
+
