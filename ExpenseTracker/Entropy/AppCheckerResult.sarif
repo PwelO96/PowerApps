@@ -1153,66 +1153,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varGalAll"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.varGalAll",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "varGalAll",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "App.varGalButtons"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.varGalButtons",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "varGalButtons",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-UnusedVariables",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App.varGalLineItem"
                 }
               ],

@@ -100,7 +100,7 @@
       "MetaDataIDKey": "",
       "Name": "btnFilter",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 9,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -687,7 +687,7 @@
       "MetaDataIDKey": "",
       "Name": "btnSortByDate",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 10,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2363,7 +2363,7 @@
       "MetaDataIDKey": "",
       "Name": "icoFilter",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 11,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2745,7 +2745,7 @@
       "MetaDataIDKey": "",
       "Name": "icoSortByDate",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 12,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6757,7 +6757,7 @@
       "MetaDataIDKey": "",
       "Name": "TextInputCanvas1",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 8,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

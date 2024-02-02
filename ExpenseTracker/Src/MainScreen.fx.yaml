@@ -81,7 +81,7 @@ MainScreen As screen:
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =2
         TemplateSize: =125
-        Y: =372
+        Y: =408
         ZIndex: =1
 
         htmlBackgroundChoices As htmlViewer:
@@ -115,7 +115,6 @@ MainScreen As screen:
             ZIndex: =2
 
         btnGalButtons As button:
-            DisplayMode: =DisplayMode.View
             Fill: =RGBA(0,0,0,0)
             Height: =67
             HoverFill: =RGBA(0,0,0,0)
@@ -166,15 +165,14 @@ MainScreen As screen:
             PressedFill: =RGBA(0,0,0,0)
             Size: =24
             Text: =""
-            Visible: =false
             Width: =125
             ZIndex: =3
 
     "galExpenses As gallery.'BrowseLayout_Vertical_OneTextVariant_ver5.0'":
         DelayItemLoading: =true
-        Height: =666
+        Height: =626
         Items: |-
-            =Filter(
+            =/*Filter(
                 ExpenseReports,
                 Or(
                     StartsWith(
@@ -184,15 +182,33 @@ MainScreen As screen:
                     And(
                         varProgress.Value <> Blank(),
                         CostCenter = varProgress.Value
+                    ),
+                    And(
+                        varStatus.Value <> Blank(),
+                        ExpenseStatus = varStatus.Value
                     )
                 )
-            )
-            /*Sort(
+            )*/
+            Sort(
                 If(
                     varGalButtons = Blank(),
                     Filter(
                         ExpenseReports,
-                        varGalAll = "ALL"
+                        varGalAll = "ALL",
+                        Or(
+                            StartsWith(
+                                ExpenseName,
+                                varTextSearch
+                            ),
+                            And(
+                                varProgress.Value <> Blank(),
+                                CostCenter = varProgress.Value
+                            ),
+                            And(
+                                varStatus.Value <> Blank(),
+                                ExpenseStatus = varStatus.Value
+                            )
+                        )
                     ),
                     Filter(
                         ExpenseReports,
@@ -201,7 +217,7 @@ MainScreen As screen:
                 ),
                 EndDate,
                 varSort
-            )*/
+            )
             /*Sort(
                 Filter(
                     ExpenseReports,
@@ -215,7 +231,7 @@ MainScreen As screen:
         OnSelect: =
         TemplatePadding: =10
         TemplateSize: =200
-        Y: =458
+        Y: =498
         ZIndex: =1
 
         htmlExpenseBackground As htmlViewer:
@@ -369,7 +385,8 @@ MainScreen As screen:
         Size: =17
         Text: ="Select expense report to view"
         Width: =333
-        Y: =183
+        X: =13
+        Y: =265
         ZIndex: =6
 
     icoFilter As icon.Filter:
@@ -379,7 +396,7 @@ MainScreen As screen:
         Icon: =Icon.Filter
         Width: =30
         X: =379
-        Y: =309
+        Y: =327
         ZIndex: =7
 
     lblFilter As label:
@@ -389,7 +406,7 @@ MainScreen As screen:
         Text: ="FILTER"
         Width: =79
         X: =409
-        Y: =289
+        Y: =307
         ZIndex: =8
 
     icoSortByDate As icon.ArrowsUpDown:
@@ -399,7 +416,7 @@ MainScreen As screen:
         Icon: =Icon.Sort
         Width: =30
         X: =505
-        Y: =309
+        Y: =327
         ZIndex: =9
 
     lblSortByDate As label:
@@ -409,7 +426,7 @@ MainScreen As screen:
         Text: ="DATE"
         Width: =73
         X: =535
-        Y: =289
+        Y: =307
         ZIndex: =10
 
     btnFilter As button:
@@ -428,7 +445,17 @@ MainScreen As screen:
                     )
                 )
             );
-            
+            Set(
+                varStatus,
+                If(
+                    IsBlank(TextInputCanvas1.Value),
+                    Blank(),
+                    LookUp(
+                        Choices(ExpenseReports.ExpenseStatus),
+                        TextInputCanvas1.Value in ThisRecord.Value
+                    )
+                )
+            );
             Set(
                 varTextSearch,
                 TextInputCanvas1.Value
@@ -438,7 +465,7 @@ MainScreen As screen:
         Text: =""
         Width: =100
         X: =379
-        Y: =299
+        Y: =317
         ZIndex: =11
 
     btnSortByDate As button:
@@ -462,7 +489,7 @@ MainScreen As screen:
         Text: =""
         Width: =92
         X: =508
-        Y: =299
+        Y: =317
         ZIndex: =12
 
     "TextInputCanvas1 As 'Text input'":
@@ -471,6 +498,6 @@ MainScreen As screen:
         OnChange: =If(IsBlank(Self.Value), Select(btnFilter))
         Width: =346
         X: =13
-        Y: =296
+        Y: =332
         ZIndex: =13
 
