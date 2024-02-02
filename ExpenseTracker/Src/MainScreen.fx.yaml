@@ -174,7 +174,20 @@ MainScreen As screen:
         DelayItemLoading: =true
         Height: =666
         Items: |-
-            =Sort(
+            =Filter(
+                ExpenseReports,
+                Or(
+                    StartsWith(
+                        ExpenseName,
+                        TextInputCanvas1.Value
+                    ),
+                    StartsWith(
+                        CostCenter,
+                        TextInputCanvas1.Value
+                    )
+                )
+            )
+            /*Sort(
                 If(
                     varGalButtons = Blank(),
                     Filter(
@@ -188,7 +201,7 @@ MainScreen As screen:
                 ),
                 EndDate,
                 varSort
-            )
+            )*/
             /*Sort(
                 Filter(
                     ExpenseReports,
@@ -212,7 +225,6 @@ MainScreen As screen:
                 ="<div style=""background: RGBA(15,84,140,1); box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2); width:"& Parent.TemplateWidth - 20 & "px; height:"& Parent.TemplateHeight -20 &"px; border-radius: 20px""></div>"
             OnSelect: =Select(Parent)
             Width: =620
-            Y: =5
             ZIndex: =1
 
         lblExpenseTitle As label:
@@ -357,8 +369,7 @@ MainScreen As screen:
         Size: =17
         Text: ="Select expense report to view"
         Width: =333
-        X: =5
-        Y: =289
+        Y: =183
         ZIndex: =6
 
     icoFilter As icon.Filter:
@@ -405,6 +416,18 @@ MainScreen As screen:
         Fill: =RGBA(56, 96, 178, 0)
         Height: =50
         HoverFill: =ColorFade(RGBA(56, 96, 178, 0), -20%)
+        OnSelect: |-
+            =Set(
+                varProgress,
+                If(
+                    IsBlank(TextInputCanvas1.Value),
+                    Blank(),
+                    LookUp(
+                        Choices(ExpenseReports.CostCenter),
+                        TextInputCanvas1.Value in ThisRecord.Value
+                    )
+                )
+            )
         PressedFill: =RGBA(0,0,0,0)
         Size: =24
         Text: =""
@@ -437,45 +460,11 @@ MainScreen As screen:
         Y: =299
         ZIndex: =12
 
-    Label1 As label:
-        Height: =70
-        Size: =21
-        Text: =varMin
-        Width: =293
-        X: =15
-        Y: =244
+    "TextInputCanvas1 As 'Text input'":
+        DisplayMode: =DisplayMode.Edit
+        Height: =53
+        Width: =346
+        X: =13
+        Y: =296
         ZIndex: =13
-
-    Button1 As button:
-        Height: =70
-        OnSelect: |
-            =Set(
-                varMax,
-                First(
-                    Sort(
-                        'Expense Information',
-                        Total,
-                        SortOrder.Descending
-                    )
-                ).Total
-            );
-            Set(
-                varMin,
-                First(
-                    Sort(
-                        Filter(
-                            'Expense Information',
-                            Total <> Blank()
-                        ),
-                        Total,
-                        SortOrder.Ascending
-                    )
-                ).Total
-            );
-        Size: =24
-        Text: ="Button"
-        Width: =280
-        X: =308
-        Y: =244
-        ZIndex: =14
 
