@@ -6,6 +6,7 @@
     "IsSampleData": false,
     "IsWritable": true,
     "LogicalName": "duplicaterecord",
+    "MaxGetRowsCount": 500,
     "Name": "Duplicate Records",
     "NativeCDSDataSourceInfoNameMapping": {
       "_baserecordid_value": "Base Record ID",

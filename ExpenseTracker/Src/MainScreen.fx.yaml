@@ -179,11 +179,11 @@ MainScreen As screen:
                 Or(
                     StartsWith(
                         ExpenseName,
-                        TextInputCanvas1.Value
+                        varTextSearch
                     ),
-                    StartsWith(
-                        CostCenter,
-                        TextInputCanvas1.Value
+                    And(
+                        varProgress.Value <> Blank(),
+                        CostCenter = varProgress.Value
                     )
                 )
             )
@@ -427,6 +427,11 @@ MainScreen As screen:
                         TextInputCanvas1.Value in ThisRecord.Value
                     )
                 )
+            );
+            
+            Set(
+                varTextSearch,
+                TextInputCanvas1.Value
             )
         PressedFill: =RGBA(0,0,0,0)
         Size: =24
@@ -463,6 +468,7 @@ MainScreen As screen:
     "TextInputCanvas1 As 'Text input'":
         DisplayMode: =DisplayMode.Edit
         Height: =53
+        OnChange: =If(IsBlank(Self.Value), Select(btnFilter))
         Width: =346
         X: =13
         Y: =296
