@@ -409,7 +409,41 @@ HREvaluation As screen:
                                 ID
                             ),
                             Value: cbxJobRoleHRE.Selected.Value
-                        }
+                        },
+                        WhatCompetence: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
+                            Value: drpCompetenceList.SelectedText.Value
+                        },
+                        CompetenceLevel: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
+                            Value: LookUp(
+                                Competences,
+                                drpCompetenceList.SelectedText.Value = CompetenceName,
+                                CompetenceLevel.Value
+                            )
+                        },
+                        YourselfCompetenceLevel: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: LookUp(
+                                colCompLvls,
+                                cbxLevelHRE.Selected.Level = Level,
+                                ID
+                            ),
+                            Value: cbxLevelHRE.Selected.Level
+                        },
+                        'Yourself Points': Switch(
+                            cbxLevelHRE.Selected.Level,
+                            "Lack",
+                            0,
+                            "Basic Level",
+                            5,
+                            "Intermediate Level",
+                            10,
+                            "Expert Level",
+                            15
+                        )
                     }
                 )
             );
