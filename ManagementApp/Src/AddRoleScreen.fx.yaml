@@ -159,8 +159,22 @@ AddRoleScreen As screen:
         HoverTextColor: =
         OnChange: =false
         OnSelect: |-
-            =Set(varButtonAddRole, true);
-            Set(varButtonAddRole, false)
+            =Set(
+                varButtonAddRole,
+                true
+            );
+            Set(
+                varButtonAddRole,
+                false
+            );
+            Set(
+                Checker,
+                LookUp(
+                    Roles,
+                    true,
+                    Last(Roles).ID
+                )
+            )
             //Concat(cbxCompetenceName.SelectedItems, CompetenceName, "; ")
         PCFTeamsTheme: ="default"
         PressedBorderColor: =
@@ -464,7 +478,11 @@ AddRoleScreen As screen:
                         {
                             RoleCompetence: {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
-                                Id: cbxCompetenceName.Selected.ID,
+                                Id: LookUp(
+                                    Roles,
+                                    true,
+                                    Last(Roles).ID
+                                ),
                                 Value: txtRoleName.Text
                             },
                             CompetenceInRole: {
@@ -490,6 +508,7 @@ AddRoleScreen As screen:
                 Reset(txtRoleDesc);
                 Reset(cbxRoleKeeper);
                 Reset(Gallery2);
+                Clear(colCompetenceGal)
                 
             )
         Visible: =false
@@ -569,4 +588,10 @@ AddRoleScreen As screen:
             X: =624
             Y: =383
             ZIndex: =26
+
+    Label3 As label:
+        Text: =Checker
+        X: =35
+        Y: =612
+        ZIndex: =27
 
