@@ -177,15 +177,6 @@ AddRoleScreen As screen:
                 varButtonAddRole,
                 false
             );
-            Set(
-                Checker,
-                LookUp(
-                    Roles,
-                    true,
-                    Last(Roles).ID
-                )
-            )
-            //Concat(cbxCompetenceName.SelectedItems, CompetenceName, "; ")
         PCFTeamsTheme: ="default"
         PressedBorderColor: =
         PressedFillColor: =
@@ -598,10 +589,4 @@ AddRoleScreen As screen:
             X: =624
             Y: =383
             ZIndex: =26
-
-    Label3 As label:
-        Text: =Checker
-        X: =35
-        Y: =612
-        ZIndex: =27
 
