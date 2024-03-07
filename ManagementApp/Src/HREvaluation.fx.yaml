@@ -382,8 +382,6 @@ HREvaluation As screen:
                 'MeetingWithHR(ManagementApp)'.Run(
                     cbxCandidateHRE.Selected.Value,
                     cbxJobRoleHRE.Selected.Value,
-                    drpCompetenceList.SelectedText.Value,
-                    cbxLevelHRE.Selected.Level,
                     txtCommentHRE.Text
                 )
             );
@@ -417,7 +415,7 @@ HREvaluation As screen:
             Text: |-
                 ="Competence:"
             Width: =242
-            X: =20
+            X: =24
             Y: =8
             ZIndex: =1
 
@@ -445,7 +443,7 @@ HREvaluation As screen:
             PCFTeamsTheme: ="default"
             Text: =
             Width: =320
-            X: =793
+            X: =789
             Y: =8
             ZIndex: =2
 
@@ -463,7 +461,7 @@ HREvaluation As screen:
             Text: |-
                 ="Level:"
             Width: =97
-            X: =657
+            X: =653
             Y: =8
             ZIndex: =3
 
@@ -474,7 +472,7 @@ HREvaluation As screen:
             Fill: =RGBA(243,242,241,1)
             HintText: =""
             OnChange: =If(IsBlank(txtCompetencesHRE.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
-            X: =287
+            X: =288
             Y: =8
             ZIndex: =4
 

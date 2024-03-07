@@ -4,14 +4,10 @@
     <jsonTypes targetNamespace="https://europe-002.azure-apim.net/apim/logicflows" xmlns="http://schemas.microsoft.com/MicrosoftProjectSiena/WADL/2014/11">
       <string name="ManualTriggerInput_text_def" />
       <string name="ManualTriggerInput_text_1_def" />
-      <string name="ManualTriggerInput_text_2_def" />
-      <string name="ManualTriggerInput_text_3_def" />
       <string name="ManualTriggerInput_text_4_def" />
       <object name="ManualTriggerInput">
         <property name="text" type="string" />
         <property name="text_1" type="string" />
-        <property name="text_2" type="string" />
-        <property name="text_3" type="string" />
         <property name="text_4" type="string" />
       </object>
     </jsonTypes>
@@ -31,12 +27,6 @@
             </param>
             <param style="plain" name="text_1" path="/text_1" type="xs:string" required="true">
               <doc title="WhichJobRole" />
-            </param>
-            <param style="plain" name="text_2" path="/text_2" type="xs:string" required="true">
-              <doc title="WhatCompetence" />
-            </param>
-            <param style="plain" name="text_3" path="/text_3" type="xs:string" required="true">
-              <doc title="LevelOfCompetence" />
             </param>
             <param style="plain" name="text_4" path="/text_4" type="xs:string" required="true">
               <doc title="EvaluationDesc" />
