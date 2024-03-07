@@ -387,6 +387,48 @@ HREvaluation As screen:
             );
             If(
                 varErrorHREPopUp = false,
+                Patch(
+                    EvaluationPoints,
+                    Defaults(EvaluationPoints),
+                    {
+                        EvaluationPointsGUID: GUID(),
+                        WhoIsEvaluated: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                            Department: "",
+                            Claims: "i:0#.f|membership|" & User().Email,
+                            DisplayName: cbxCandidateHRE.Selected.Value,
+                            Email: "",
+                            JobTitle: "",
+                            Picture: ""
+                        },
+                        WhatJobRole: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: LookUp(
+                                Roles,
+                                Name = cbxJobRoleHRE.Selected.Value,
+                                ID
+                            ),
+                            Value: cbxJobRoleHRE.Selected.Value
+                        }
+                    }
+                )
+            );
+            /*{
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                            Department: "",
+                            Claims: "i:0#.f|membership|" & User().Email,
+                            DisplayName: cbxEmployeeToEval.Selected.Employee.DisplayName,
+                            Email: cbxEmployeeToEval.Selected.Employee.Email,
+                            JobTitle: "",
+                            Picture: ""
+                        },
+                        JobRole: {
+                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                            Id: cbxJobRole.Selected.ID,
+                            Value: cbxJobRole.Selected.Name
+                        }*/
+            If(
+                varErrorHREPopUp = false,
                 Set(
                     varConfirmHREPopUp,
                     true

@@ -41,6 +41,8 @@
       "Title": "Title",
       "WhatCompetence": "WhatCompetence",
       "WhatCompetence#Id": "WhatCompetence Id",
+      "WhatJobRole": "WhatJobRole",
+      "WhatJobRole#Id": "WhatJobRole Id",
       "WhoIsEvaluated": "WhoIsEvaluated",
       "WhoIsEvaluated#Claims": "WhoIsEvaluated Claims",
       "YourselfCompetenceLevel": "YourselfCompetenceLevel",

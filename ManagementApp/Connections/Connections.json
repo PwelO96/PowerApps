@@ -83,6 +83,12 @@
       "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1664/1.0.1664.3477/logicflows/icon.png",
       "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
       "parameterHints": {
+        "2cf820d5-2757-4607-a51a-3a84646329fa": {
+          "value": "shared_sharepointonline"
+        },
+        "afb68693-1bf6-46d7-80c1-7b680a870e2e": {
+          "value": "shared_office365"
+        },
         "workflowDisplayName": {
           "value": "MeetingWithHR(ManagementApp)"
         },
@@ -92,6 +98,12 @@
         }
       },
       "parameterHintsV2": {
+        "shared_office365": {
+          "value": "afb68693-1bf6-46d7-80c1-7b680a870e2e"
+        },
+        "shared_sharepointonline": {
+          "value": "2cf820d5-2757-4607-a51a-3a84646329fa"
+        },
         "workflowDisplayName": {
           "value": "MeetingWithHR(ManagementApp)"
         },
