@@ -420,11 +420,7 @@ HREvaluation As screen:
                             CompetenceLevel: {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
                                 Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
-                                Value: LookUp(
-                                    Competences,
-                                    CompetenceName = drpCompetenceList.Selected.Value,
-                                    CompetenceLevel.Value
-                                )
+                                Value: Label6.Text
                             },
                             YourselfCompetenceLevel: {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
@@ -564,7 +560,19 @@ HREvaluation As screen:
             PaddingLeft: =6
             Size: =10.5
             Width: =309
-            X: =292
-            Y: =14
+            X: =293
+            Y: =11
             ZIndex: =5
+
+        Label6 As label:
+            OnSelect: =Select(Parent)
+            Text: |-
+                =LookUp(
+                    Competences,
+                    drpCompetenceList.SelectedText.Value = CompetenceName,
+                    CompetenceLevel.Value
+                )
+            X: =538
+            Y: =11
+            ZIndex: =6
 

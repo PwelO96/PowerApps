@@ -37,7 +37,6 @@ LoadingScreen As screen:
             );
             ClearCollect(
                 colCompLvls,
-                {ID: 4, Level: "Lack"},
                 CompetenceLevels
             );
             ClearCollect(
