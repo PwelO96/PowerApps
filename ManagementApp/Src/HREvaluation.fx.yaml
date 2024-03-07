@@ -123,66 +123,9 @@ HREvaluation As screen:
         Text: |-
             ="Competences:"
         Width: =242
-        X: =76
-        Y: =354
+        X: =15
+        Y: =700
         ZIndex: =8
-
-    "cbxLevelHRE As 'Combo box'.pcfdataset":
-        AllowMultiSelect: =false
-        AllowSearching: =false
-        DefaultSelectedItems: =
-        DisplayMode: =DisplayMode.Edit
-        FillColor: =If(varEmptyLHRFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
-        Height: =40
-        Items: =colCompLvls
-        OnChange: |-
-            =If(
-                IsBlank(cbxLevelHRE.Selected.Level),
-                Set(
-                    varEmptyLHRFieldsError,
-                    true
-                ),
-                Set(
-                    varEmptyLHRFieldsError,
-                    false
-                )
-            )
-        OnSelect: =
-        PCFTeamsTheme: ="default"
-        Text: =
-        Width: =320
-        X: =841
-        Y: =354
-        ZIndex: =9
-
-        Level4 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Level"
-            FieldName: ="Level"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =1
-            ZIndex: =3
-
-    lblLevelHRE As label:
-        FontWeight: =FontWeight.Semibold
-        Size: =16
-        Text: |-
-            ="Level:"
-        Width: =97
-        X: =705
-        Y: =354
-        ZIndex: =10
-
-    txtCompetencesHRE As text:
-        BorderThickness: =0
-        Default: =
-        DisplayMode: =DisplayMode.View
-        Fill: =RGBA(243,242,241,1)
-        HintText: =""
-        OnChange: =If(IsBlank(txtCompetencesHRE.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
-        X: =340
-        Y: =354
-        ZIndex: =11
 
     lblCommentHRE As label:
         FontWeight: =FontWeight.Semibold
@@ -191,7 +134,7 @@ HREvaluation As screen:
             ="Comment:"
         Width: =242
         X: =76
-        Y: =426
+        Y: =496
         ZIndex: =12
 
     txtCommentHRE As text:
@@ -208,7 +151,7 @@ HREvaluation As screen:
         PaddingTop: =12
         Size: =10.5
         X: =340
-        Y: =426
+        Y: =496
         ZIndex: =13
 
     lblJobRoleHREText As label:
@@ -267,29 +210,6 @@ HREvaluation As screen:
             FieldVariantName: ="textualColumn"
             Order: =1
             ZIndex: =7
-
-    drpCompetenceList As dropdown:
-        DisplayMode: =DisplayMode.View
-        Fill: =RGBA(243,242,241,1)
-        Height: =34
-        Items: |-
-            =ShowColumns(
-                AddColumns(
-                    Filter(
-                        colRoles,
-                        cbxJobRoleHRE.Selected.Value = Name
-                    ),
-                    "CompetenceRole",
-                    ThisRecord.RequireCompetences.Value
-                ),
-                "CompetenceRole"
-            )
-        PaddingLeft: =6
-        Size: =10.5
-        Width: =309
-        X: =345
-        Y: =358
-        ZIndex: =18
 
     ErrorPopUpHRE As group:
         Height: =5
@@ -488,4 +408,118 @@ HREvaluation As screen:
         X: =1262
         Y: =737
         ZIndex: =32
+
+    Gallery3 As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =164
+        Items: =Filter(CompetenceRoles, Filter(Evaluation, cbxCandidateHRE.Selected.Value = PersonToAssessment.DisplayName) = RoleCompetence)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =66
+        Width: =1251
+        X: =46
+        Y: =317
+        ZIndex: =33
+
+        lblCompetencesHRE_2 As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =16
+            Text: |-
+                ="Competence:"
+            Width: =242
+            X: =20
+            Y: =8
+            ZIndex: =1
+
+        "cbxLevelHRE As 'Combo box'.pcfdataset":
+            AllowMultiSelect: =false
+            AllowSearching: =false
+            DefaultSelectedItems: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =If(varEmptyLHRFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+            Height: =40
+            Items: =colCompLvls
+            OnChange: |-
+                =If(
+                    IsBlank(cbxLevelHRE.Selected.Level),
+                    Set(
+                        varEmptyLHRFieldsError,
+                        true
+                    ),
+                    Set(
+                        varEmptyLHRFieldsError,
+                        false
+                    )
+                )
+            OnSelect: =
+            PCFTeamsTheme: ="default"
+            Text: =
+            Width: =320
+            X: =793
+            Y: =8
+            ZIndex: =2
+
+            Level4 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Level"
+                FieldName: ="Level"
+                FieldType: ="s"
+                FieldVariantName: ="textualColumn"
+                Order: =1
+                ZIndex: =3
+
+        lblLevelHRE As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =16
+            Text: |-
+                ="Level:"
+            Width: =97
+            X: =657
+            Y: =8
+            ZIndex: =3
+
+        txtCompetencesHRE As text:
+            BorderThickness: =0
+            Default: =
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(243,242,241,1)
+            HintText: =""
+            OnChange: =If(IsBlank(txtCompetencesHRE.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
+            X: =287
+            Y: =8
+            ZIndex: =4
+
+        drpCompetenceList As dropdown:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(243,242,241,1)
+            Height: =34
+            Items: =ThisItem.CompetenceInRole
+            PaddingLeft: =6
+            Size: =10.5
+            Width: =309
+            X: =292
+            Y: =14
+            ZIndex: =5
+
+    drpCompetenceList_2 As dropdown:
+        DisplayMode: =DisplayMode.View
+        Fill: =RGBA(243,242,241,1)
+        Height: =34
+        Items: |-
+            =ShowColumns(
+                AddColumns(
+                    Filter(
+                        colRoles,
+                        cbxJobRoleHRE.Selected.Value = Name
+                    ),
+                    "CompetenceRole",
+                    ThisRecord.RequireCompetences.Value
+                ),
+                "CompetenceRole"
+            )
+        PaddingLeft: =6
+        Size: =10.5
+        Width: =309
+        X: =218
+        Y: =700
+        ZIndex: =34
 
