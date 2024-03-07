@@ -387,64 +387,68 @@ HREvaluation As screen:
             );
             If(
                 varErrorHREPopUp = false,
-                Patch(
-                    EvaluationPoints,
-                    Defaults(EvaluationPoints),
-                    {
-                        EvaluationPointsGUID: GUID(),
-                        WhoIsEvaluated: {
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
-                            Department: "",
-                            Claims: "i:0#.f|membership|" & User().Email,
-                            DisplayName: cbxCandidateHRE.Selected.Value,
-                            Email: "",
-                            JobTitle: "",
-                            Picture: ""
-                        },
-                        WhatJobRole: {
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
-                            Id: LookUp(
-                                Roles,
-                                Name = cbxJobRoleHRE.Selected.Value,
-                                ID
-                            ),
-                            Value: cbxJobRoleHRE.Selected.Value
-                        },
-                        WhatCompetence: {
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
-                            Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
-                            Value: drpCompetenceList.SelectedText.Value
-                        },
-                        CompetenceLevel: {
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
-                            Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
-                            Value: LookUp(
-                                Competences,
-                                drpCompetenceList.SelectedText.Value = CompetenceName,
-                                CompetenceLevel.Value
+                ForAll(
+                    galHREvaluationCompetences.AllItems,
+                    Patch(
+                        EvaluationPoints,
+                        Defaults(EvaluationPoints),
+                        {
+                            EvaluationPointsGUID: GUID(),
+                            WhoIsEvaluated: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedUser",
+                                Department: "",
+                                Claims: "i:0#.f|membership|" & User().Email,
+                                DisplayName: cbxCandidateHRE.Selected.Value,
+                                Email: "",
+                                JobTitle: "",
+                                Picture: ""
+                            },
+                            WhatJobRole: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                Id: LookUp(
+                                    Roles,
+                                    Name = cbxJobRoleHRE.Selected.Value,
+                                    ID
+                                ),
+                                Value: cbxJobRoleHRE.Selected.Value
+                            },
+                            WhatCompetence: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
+                                Value: drpCompetenceList.SelectedText.Value
+                            },
+                            CompetenceLevel: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                Id: drpCompetenceList.SelectedText.'data-ADB4D7A662F548B49FAC2B986E348A1BId',
+                                Value: LookUp(
+                                    Competences,
+                                    CompetenceName = drpCompetenceList.Selected.Value,
+                                    CompetenceLevel.Value
+                                )
+                            },
+                            YourselfCompetenceLevel: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                Id: LookUp(
+                                    colCompLvls,
+                                    cbxLevelHRE.Selected.Level = Level,
+                                    ID
+                                ),
+                                Value: cbxLevelHRE.Selected.Level
+                            },
+                            'Yourself Points': Switch(
+                                cbxLevelHRE.Selected.Level,
+                                "Lack",
+                                0,
+                                "Basic Level",
+                                5,
+                                "Intermediate Level",
+                                10,
+                                "Expert Level",
+                                15,
+                                0
                             )
-                        },
-                        YourselfCompetenceLevel: {
-                            '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
-                            Id: LookUp(
-                                colCompLvls,
-                                cbxLevelHRE.Selected.Level = Level,
-                                ID
-                            ),
-                            Value: cbxLevelHRE.Selected.Level
-                        },
-                        'Yourself Points': Switch(
-                            cbxLevelHRE.Selected.Level,
-                            "Lack",
-                            0,
-                            "Basic Level",
-                            5,
-                            "Intermediate Level",
-                            10,
-                            "Expert Level",
-                            15
-                        )
-                    }
+                        }
+                    )
                 )
             );
             /*{
