@@ -1,6 +1,6 @@
 AddRoleScreen As screen:
 
-    Gallery2 As gallery.galleryVertical:
+    galNewRoleCompetences As gallery.galleryVertical:
         DelayItemLoading: =true
         Height: =168
         Items: =colCompetenceGal
@@ -481,7 +481,7 @@ AddRoleScreen As screen:
             If(
                 varErrorARSPopUp = false,
                 ForAll(
-                    Gallery2.AllItems,
+                    galNewRoleCompetences.AllItems,
                     Patch(
                         CompetenceRoles,
                         Defaults(CompetenceRoles),
@@ -517,7 +517,7 @@ AddRoleScreen As screen:
                 ) && Reset(txtRoleName);
                 Reset(txtRoleDesc);
                 Reset(cbxRoleKeeper);
-                Reset(Gallery2);
+                Reset(galNewRoleCompetences);
                 Clear(colCompetenceGal)
                 
             )
