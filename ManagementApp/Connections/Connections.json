@@ -39,6 +39,9 @@
           "CompetenceLevels": {
             "tableName": "a3f29c37-3d16-4a5c-babe-73691fed6e9a"
           },
+          "CompetenceRoles": {
+            "tableName": "3bf7df29-a8c4-49b9-8736-b3804802cca7"
+          },
           "Competences": {
             "tableName": "a4d719b1-86af-4675-890c-5dd6efe112bb"
           },
@@ -60,7 +63,8 @@
       "Evaluation",
       "Roles",
       "EmployeeList",
-      "CompetenceEvaluation"
+      "CompetenceEvaluation",
+      "CompetenceRoles"
     ],
     "dependencies": {},
     "dependents": [
