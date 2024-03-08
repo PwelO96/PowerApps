@@ -104,62 +104,6 @@ CCEvaluation As screen:
         Y: =272
         ZIndex: =7
 
-    lblCompetencesHRE_1 As label:
-        FontWeight: =FontWeight.Semibold
-        Size: =16
-        Text: |-
-            ="Competences:"
-        Width: =242
-        X: =76
-        Y: =354
-        ZIndex: =8
-
-    "cbxLevelHRE_1 As 'Combo box'.pcfdataset":
-        AllowMultiSelect: =false
-        AllowSearching: =false
-        DefaultSelectedItems: =
-        DisplayMode: =DisplayMode.Edit
-        FillColor: =If(varEmptyLCCFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
-        Height: =40
-        Items: =colCompLvls
-        OnChange: =If(IsBlank(cbxLevelHRE_1.Selected.Level),Set(varEmptyLCCFieldsError, true ),Set(varEmptyLCCFieldsError, false ))
-        OnSelect: =
-        PCFTeamsTheme: ="default"
-        Text: =
-        Width: =320
-        X: =841
-        Y: =354
-        ZIndex: =9
-
-        Level4_1 As pcfDataField.textualColumn:
-            FieldDisplayName: ="Level"
-            FieldName: ="Level"
-            FieldType: ="s"
-            FieldVariantName: ="textualColumn"
-            Order: =1
-            ZIndex: =3
-
-    lblLevelHRE_1 As label:
-        FontWeight: =FontWeight.Semibold
-        Size: =16
-        Text: |-
-            ="Level:"
-        Width: =97
-        X: =705
-        Y: =354
-        ZIndex: =10
-
-    txtCompetencesHRE_1 As text:
-        BorderThickness: =0
-        Default: =
-        DisplayMode: =DisplayMode.View
-        Fill: =RGBA(243,242,241,1)
-        HintText: =""
-        OnChange: =If(IsBlank(txtCompetencesHRE_1.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
-        X: =340
-        Y: =354
-        ZIndex: =11
-
     lblCommentHRE_1 As label:
         FontWeight: =FontWeight.Semibold
         Size: =16
@@ -167,8 +111,8 @@ CCEvaluation As screen:
             ="Comment:"
         Width: =242
         X: =76
-        Y: =426
-        ZIndex: =12
+        Y: =517
+        ZIndex: =9
 
     txtCommentHRE_1 As text:
         BorderColor: =RGBA(243, 242, 241, 1)
@@ -184,8 +128,8 @@ CCEvaluation As screen:
         PaddingTop: =12
         Size: =10.5
         X: =340
-        Y: =426
-        ZIndex: =13
+        Y: =517
+        ZIndex: =10
 
     lblJobRoleHREText_1 As label:
         FontWeight: =FontWeight.Semibold
@@ -195,7 +139,7 @@ CCEvaluation As screen:
         Width: =122
         X: =705
         Y: =272
-        ZIndex: =14
+        ZIndex: =11
 
     "cbxJobRoleHRE_1 As 'Combo box'.pcfdataset":
         AllowMultiSelect: =false
@@ -223,7 +167,7 @@ CCEvaluation As screen:
         Width: =320
         X: =841
         Y: =272
-        ZIndex: =15
+        ZIndex: =12
 
         Value4 As pcfDataField.textualColumn:
             FieldDisplayName: ="Value"
@@ -232,17 +176,6 @@ CCEvaluation As screen:
             FieldVariantName: ="textualColumn"
             Order: =1
             ZIndex: =9
-
-    drpCompetenceList_1 As dropdown:
-        DisplayMode: =DisplayMode.View
-        Fill: =RGBA(243,242,241,1)
-        Height: =34
-        PaddingLeft: =6
-        Size: =10.5
-        Width: =309
-        X: =345
-        Y: =358
-        ZIndex: =18
 
     tglBtnHREvaluation_1 As toggleSwitch:
         Default: =varButtonCCEvaluation
@@ -272,11 +205,45 @@ CCEvaluation As screen:
                     varErrorCCEPopUp,
                     true
                 ),
-                'MeetingWithCC(ManagementApp)'.Run(
-                    cbxLevelHRE_1.Selected.Level,
-                    cbxCandidateHRE_1.Selected.Value,
-                    cbxJobRoleHRE_1.Selected.Value,
-                    txtCommentHRE_1.Text
+                ForAll(
+                    galCompetenceCC.AllItems,
+                    Patch(
+                        EvaluationPoints,
+                        LookUp(
+                            EvaluationPoints,
+                            drpCompetenceList_1.SelectedText.Value = WhatCompetence.Value
+                        ),
+                        {
+                            CCCompetenceLevel: {
+                                '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+                                Id: cbxLevelHRE_1.Selected.ID,
+                                Value: cbxLevelHRE_1.Selected.Level
+                            },
+                            'CC Points': Switch(
+                                cbxLevelHRE_1.Selected.Level,
+                                "Lack",
+                                0,
+                                "Basic Level",
+                                5,
+                                "Intermediate Level",
+                                10,
+                                "Expert Level",
+                                15,
+                                0
+                            )
+                        }
+                    )
+                )
+            );
+            If(
+                varErrorCCEPopUp = false,
+                Patch(
+                    CompetenceEvaluation,
+                    LookUp(
+                        CompetenceEvaluation,
+                        cbxJobRoleHRE_1.Selected.Value = WhichJobRole && cbxCandidateHRE_1.Selected.Value = EvaluationPerson.DisplayName
+                    ),
+                    {EvalutionalDescriptionByCC: txtCommentHRE_1.Text}
                 )
             );
             If(
@@ -289,7 +256,87 @@ CCEvaluation As screen:
         Visible: =false
         X: =1262
         Y: =737
-        ZIndex: =19
+        ZIndex: =13
+
+    galCompetenceCC As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =164
+        Items: =Filter(EvaluationPoints, cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value)
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =67
+        Width: =1251
+        X: =23
+        Y: =311
+        ZIndex: =14
+
+        lblCompetencesHRE_1 As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =16
+            Text: |-
+                ="Competences:"
+            Width: =242
+            X: =48
+            Y: =16
+            ZIndex: =1
+
+        "cbxLevelHRE_1 As 'Combo box'.pcfdataset":
+            AllowMultiSelect: =false
+            AllowSearching: =false
+            DefaultSelectedItems: =
+            DisplayMode: =DisplayMode.Edit
+            FillColor: =If(varEmptyLCCFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
+            Height: =40
+            Items: =colCompLvls
+            OnChange: =If(IsBlank(cbxLevelHRE_1.Selected.Level),Set(varEmptyLCCFieldsError, true ),Set(varEmptyLCCFieldsError, false ))
+            OnSelect: =
+            PCFTeamsTheme: ="default"
+            Text: =
+            Width: =320
+            X: =814
+            Y: =16
+            ZIndex: =2
+
+            Level3 As pcfDataField.textualColumn:
+                FieldDisplayName: ="Level"
+                FieldName: ="Level"
+                FieldType: ="s"
+                FieldVariantName: ="textualColumn"
+                Order: =1
+                ZIndex: =10
+
+        lblLevelHRE_1 As label:
+            FontWeight: =FontWeight.Semibold
+            Size: =16
+            Text: |-
+                ="Level:"
+            Width: =97
+            X: =673
+            Y: =16
+            ZIndex: =3
+
+        txtCompetencesHRE_1 As text:
+            BorderThickness: =0
+            Default: =
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(243,242,241,1)
+            HintText: =""
+            OnChange: =If(IsBlank(txtCompetencesHRE_1.Text), Set(varEmptyRNFieldsError, true), Set(varEmptyRNFieldsError, false))
+            X: =310
+            Y: =16
+            ZIndex: =4
+
+        drpCompetenceList_1 As dropdown:
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(243,242,241,1)
+            Height: =34
+            Items: =ThisItem.WhatCompetence
+            PaddingLeft: =6
+            Size: =10.5
+            Width: =309
+            X: =315
+            Y: =22
+            ZIndex: =5
 
     ErrorPopUpCCE As group:
         Height: =5
@@ -303,7 +350,7 @@ CCEvaluation As screen:
             Height: =768
             Visible: =varErrorCCEPopUp
             Width: =1366
-            ZIndex: =26
+            ZIndex: =20
 
         recErrorES_2 As rectangle:
             BorderColor: =RGBA(255, 0, 0, 1)
@@ -314,7 +361,7 @@ CCEvaluation As screen:
             Width: =633
             X: =366
             Y: =229
-            ZIndex: =28
+            ZIndex: =21
 
         icoErrorES_2 As icon.Error:
             Color: =RGBA(255, 0, 0, 1)
@@ -324,7 +371,7 @@ CCEvaluation As screen:
             Width: =89
             X: =638
             Y: =366
-            ZIndex: =29
+            ZIndex: =22
 
         lblFixErrorsES_2 As label:
             Align: =Align.Center
@@ -337,7 +384,7 @@ CCEvaluation As screen:
             Width: =233
             X: =568
             Y: =262
-            ZIndex: =30
+            ZIndex: =23
 
         btnErrorES_2 As Button:
             BorderColor: =
@@ -366,7 +413,7 @@ CCEvaluation As screen:
             Width: =231
             X: =568
             Y: =516
-            ZIndex: =31
+            ZIndex: =24
 
     ConfirmPopUpErrorPopUpCCE As group:
         Height: =5
@@ -380,7 +427,7 @@ CCEvaluation As screen:
             Height: =768
             Visible: =varConfirmCCEPopUp
             Width: =1366
-            ZIndex: =20
+            ZIndex: =15
 
         recPopUpMainES_2 As rectangle:
             Fill: =RGBA(187, 221, 140, 1)
@@ -389,7 +436,7 @@ CCEvaluation As screen:
             Width: =628
             X: =353
             Y: =219
-            ZIndex: =21
+            ZIndex: =16
 
         btnConfirmConfES_2 As Button:
             BorderColor: =
@@ -418,7 +465,7 @@ CCEvaluation As screen:
             Width: =176
             X: =841
             Y: =516
-            ZIndex: =23
+            ZIndex: =17
 
         lblConfirmTextES_2 As label:
             Align: =Align.Center
@@ -431,7 +478,7 @@ CCEvaluation As screen:
             Width: =372
             X: =470
             Y: =273
-            ZIndex: =24
+            ZIndex: =18
 
         icoConfigmES_2 As icon.Check:
             Color: =RGBA(54, 176, 75, 1)
@@ -439,5 +486,5 @@ CCEvaluation As screen:
             Visible: =varConfirmCCEPopUp
             X: =624
             Y: =383
-            ZIndex: =25
+            ZIndex: =19
 

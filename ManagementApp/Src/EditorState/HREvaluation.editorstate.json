@@ -1273,7 +1273,7 @@
       "MetaDataIDKey": "",
       "Name": "ConfirmPopUpHRE",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 23,
+      "ParentIndex": 24,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1650,7 +1650,7 @@
       "MetaDataIDKey": "",
       "Name": "ErrorPopUpHRE",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 24,
+      "ParentIndex": 23,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
