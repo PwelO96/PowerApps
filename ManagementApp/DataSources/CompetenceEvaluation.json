@@ -3,7 +3,7 @@
     "ApiId": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
     "CdpRevision": {
       "BaseUrl": "/",
-      "LastChangedTimeString": "2024-01-08T17:52:53.0100000Z",
+      "LastChangedTimeString": "2024-03-07T22:11:04.8240000Z",
       "RevisionNumber": 1
     },
     "ConnectedDataSourceInfoNameMapping": {
@@ -28,7 +28,6 @@
       "CCMeeting": "CCMeeting",
       "CCPoints": "CCPoints",
       "CompetenceGuid": "CompetenceGuid",
-      "CompetenceLvl": "CompetenceLvl",
       "ComplianceAssetId": "Compliance Asset Id",
       "Created": "Created",
       "Editor": "Modified By",
@@ -38,12 +37,9 @@
       "EvaluationPerson#Claims": "EvaluationPerson Claims",
       "EvalutionalDescriptionByCC": "EvalutionalDescriptionByCC",
       "ID": "ID",
-      "LevelOfCompetence": "LevelOfCompetence",
-      "LevelOfCompetenceByCC": "LevelOfCompetenceByCC",
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
       "Title": "Title",
-      "WhatCompetences": "WhatCompetences",
       "WhichJobRole": "WhichJobRole",
       "YourselfPoints": "YourselfPoints"
     },

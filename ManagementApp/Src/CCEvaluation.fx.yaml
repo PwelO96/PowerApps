@@ -237,18 +237,6 @@ CCEvaluation As screen:
         DisplayMode: =DisplayMode.View
         Fill: =RGBA(243,242,241,1)
         Height: =34
-        Items: |-
-            =ShowColumns(
-                AddColumns(
-                    Filter(
-                        colRoles,
-                        cbxJobRoleHRE_1.Selected.Value = Name
-                    ),
-                    "CompetenceRole",
-                    ThisRecord.RequireCompetences.Value
-                ),
-                "CompetenceRole"
-            )
         PaddingLeft: =6
         Size: =10.5
         Width: =309
