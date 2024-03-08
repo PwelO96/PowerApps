@@ -31,17 +31,6 @@ CandidateListScreen As screen:
     "galCandidates As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
         DelayItemLoading: =true
         Height: =533
-        Items: |-
-            =ForAll(
-                Distinct(
-                    EvaluationPoints,
-                    WhatJobRole.Value
-                ),
-                LookUp(
-                    EvaluationPoints,
-                   WhatJobRole.Value <> ""
-                )
-            )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
