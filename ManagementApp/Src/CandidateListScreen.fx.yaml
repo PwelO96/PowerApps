@@ -31,7 +31,7 @@ CandidateListScreen As screen:
     "galCandidates As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
         DelayItemLoading: =true
         Height: =533
-        Items: =Sort(colCompEvaluation,CCPoints,SortOrder.Descending)
+        Items: =EvaluationPoints
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
@@ -53,7 +53,7 @@ CandidateListScreen As screen:
             FontWeight: =FontWeight.Bold
             Height: =27
             OnSelect: =Select(Parent)
-            Text: =ThisItem.EvaluationPerson.DisplayName
+            Text: =ThisItem.WhoIsEvaluated.DisplayName
             Width: =181
             X: =49
             Y: =24
@@ -110,7 +110,19 @@ CandidateListScreen As screen:
         lblRequiredPoints As label:
             Fill: =RGBA(237, 237, 237, 1)
             Height: =41
-            Text: =
+            Text: |-
+                =Switch(
+                    ThisItem.CompetenceLevel.Value,
+                    "Lack",
+                    0,
+                    "Basic Level",
+                    5,
+                    "Intermediate Level",
+                    10,
+                    "Expert Level",
+                    15,
+                    0
+                )
             Width: =249
             X: =422
             Y: =45
@@ -128,7 +140,7 @@ CandidateListScreen As screen:
         lblCCPoints As label:
             Fill: =If(ThisItem.CCPoints >= Value(lblRequiredPoints.Text), RGBA(54,176,75, .6), ThisItem.CCPoints <= 0, RGBA(237,237,237, 1), RGBA(255,0,0, .6))
             Height: =41
-            Text: =If(ThisItem.CCPoints <=0, "Not yet evaluated", ThisItem.CCPoints)
+            Text: =If(IsBlank(ThisItem.CCPoints), "Not yet evaluated", ThisItem.CCPoints)
             Width: =247
             X: =923
             Y: =45
@@ -138,7 +150,7 @@ CandidateListScreen As screen:
             FontWeight: =FontWeight.Semibold
             Height: =34
             OnSelect: =Select(Parent)
-            Text: =ThisItem.WhichJobRole
+            Text: =ThisItem.WhatJobRole.Value
             Width: =370
             X: =49
             Y: =52
