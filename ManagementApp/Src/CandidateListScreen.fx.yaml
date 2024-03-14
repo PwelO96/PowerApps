@@ -31,6 +31,17 @@ CandidateListScreen As screen:
     "galCandidates As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
         DelayItemLoading: =true
         Height: =533
+        Items: |-
+            =ForAll(
+                Distinct(
+                    EvaluationPoints,
+                    EvaluationID
+                ),
+                LookUp(
+                    EvaluationPoints,
+                    EvaluationID = Value
+                )
+            )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
@@ -130,7 +141,17 @@ CandidateListScreen As screen:
         lblSelfPoints As label:
             Fill: =RGBA(237, 237, 237, 1)
             Height: =41
-            Text: =ThisItem.YourselfPoints
+            Text: |-
+                =Sum(
+                    ForAll(
+                        Filter(
+                            EvaluationPoints,
+                            EvaluationID = ThisItem.EvaluationID
+                        ),
+                        'Yourself Points'
+                    ),
+                    Value
+                )
             Width: =248
             X: =673
             Y: =45

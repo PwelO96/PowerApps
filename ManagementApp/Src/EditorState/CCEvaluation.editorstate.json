@@ -1335,7 +1335,7 @@
       "MetaDataIDKey": "",
       "Name": "ConfirmPopUpErrorPopUpCCE",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 23,
+      "ParentIndex": 24,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1712,7 +1712,7 @@
       "MetaDataIDKey": "",
       "Name": "ErrorPopUpCCE",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 24,
+      "ParentIndex": 23,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
