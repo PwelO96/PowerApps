@@ -76,7 +76,15 @@ CCEvaluation As screen:
         DisplayMode: =DisplayMode.Edit
         FillColor: =If(varEmptyCanCCFieldsError, RGBA(255, 0, 0, .5), RGBA(243,242,241,1))
         Height: =40
-        Items: =Distinct(colCompEvaluationNames, Value)
+        Items: |-
+            =Distinct(
+                Filter(
+                    EvaluationPoints,
+                    'CC Points' = Blank()
+                ),
+                WhoIsEvaluated.DisplayName
+            )
+            //Distinct(colCompEvaluationNames, Value)
         OnChange: =If(IsBlank(cbxCandidateHRE_1.Selected.Value),Set(varEmptyCanCCFieldsError, true ),Set(varEmptyCanCCFieldsError, false ))
         OnSelect: =
         PCFTeamsTheme: ="default"
@@ -150,6 +158,13 @@ CCEvaluation As screen:
         Height: =40
         Items: |-
             =Distinct(
+                Filter(
+                    EvaluationPoints,
+                    cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && 'CC Points' = Blank()
+                ),
+                WhatJobRole.Value
+            )
+            /*Distinct(
                 AddColumns(
                     Filter(
                         colCompEvaluation,
@@ -159,7 +174,7 @@ CCEvaluation As screen:
                     ThisRecord.WhichJobRole
                 ),
                 JobRoleCol
-            )
+            )*/
         OnChange: =If(IsBlank(cbxJobRoleHRE_1.Selected.Value),Set(varEmptyJRCCFieldsError, true ),Set(varEmptyJRCCFieldsError, false ))
         OnSelect: =
         PCFTeamsTheme: ="default"
@@ -169,13 +184,13 @@ CCEvaluation As screen:
         Y: =272
         ZIndex: =12
 
-        Value4 As pcfDataField.textualColumn:
+        Value2 As pcfDataField.textualColumn:
             FieldDisplayName: ="Value"
             FieldName: ="Value"
-            FieldType: ="s"
+            FieldType: ="e"
             FieldVariantName: ="textualColumn"
             Order: =1
-            ZIndex: =9
+            ZIndex: =11
 
     tglBtnHREvaluation_1 As toggleSwitch:
         Default: =varButtonCCEvaluation
@@ -211,7 +226,12 @@ CCEvaluation As screen:
                         EvaluationPoints,
                         LookUp(
                             EvaluationPoints,
-                            drpCompetenceList_1.SelectedText.Value = WhatCompetence.Value
+                            drpCompetenceList_1.SelectedText.Value = WhatCompetence.Value && EvaluationID = Last(
+                                Filter(
+                                    EvaluationPoints,
+                                    cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value && 'CC Points' = Blank()
+                                )
+                            ).EvaluationID
                         ),
                         {
                             CCCompetenceLevel: {
@@ -261,7 +281,16 @@ CCEvaluation As screen:
     galCompetenceCC As gallery.galleryVertical:
         DelayItemLoading: =true
         Height: =164
-        Items: =Filter(EvaluationPoints, cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value)
+        Items: |-
+            =Filter(
+                EvaluationPoints,
+                cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value && 'CC Points' = Blank() && EvaluationID = Last(
+                    Filter(
+                        EvaluationPoints,
+                        cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value && 'CC Points' = Blank()
+                    )
+                ).EvaluationID
+            )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplateSize: =67
@@ -330,11 +359,10 @@ CCEvaluation As screen:
             DisplayMode: =DisplayMode.View
             Fill: =RGBA(243,242,241,1)
             Height: =34
-            Items: =ThisItem.WhatCompetence
             PaddingLeft: =6
             Size: =10.5
             Width: =309
-            X: =315
+            X: =321
             Y: =22
             ZIndex: =5
 
@@ -463,8 +491,8 @@ CCEvaluation As screen:
             TextColor: =
             Visible: =varConfirmCCEPopUp
             Width: =176
-            X: =841
-            Y: =516
+            X: =579
+            Y: =517
             ZIndex: =17
 
         lblConfirmTextES_2 As label:
