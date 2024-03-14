@@ -121,17 +121,28 @@ CandidateListScreen As screen:
             Fill: =RGBA(237, 237, 237, 1)
             Height: =41
             Text: |-
-                =Switch(
-                    ThisItem.CompetenceLevel.Value,
-                    "Lack",
-                    0,
-                    "Basic Level",
-                    5,
-                    "Intermediate Level",
-                    10,
-                    "Expert Level",
-                    15,
-                    0
+                =Value(
+                    Sum(
+                        ForAll(
+                            Filter(
+                                EvaluationPoints,
+                                EvaluationID = ThisItem.EvaluationID
+                            ),
+                            Switch(
+                                CompetenceLevel.Value,
+                                "Lack",
+                                0,
+                                "Basic Level",
+                                5,
+                                "Intermediate Level",
+                                10,
+                                "Expert Level",
+                                15,
+                                0
+                            )
+                        ),
+                        Value
+                    )
                 )
             Width: =249
             X: =422
@@ -158,9 +169,54 @@ CandidateListScreen As screen:
             ZIndex: =7
 
         lblCCPoints As label:
-            Fill: =If(ThisItem.CCPoints >= Value(lblRequiredPoints.Text), RGBA(54,176,75, .6), ThisItem.CCPoints <= 0, RGBA(237,237,237, 1), RGBA(255,0,0, .6))
+            Fill: |-
+                =If(
+                    Sum(
+                        ForAll(
+                            Filter(
+                                EvaluationPoints,
+                                EvaluationID = ThisItem.EvaluationID
+                            ),
+                            'CC Points'
+                        ),
+                        Value
+                    ) >= Value(lblRequiredPoints.Text),
+                    RGBA(
+                        54,
+                        176,
+                        75,
+                        .6
+                    ),
+                    lblCCPoints.Text = "Not yet evaluated",
+                    RGBA(
+                        237,
+                        237,
+                        237,
+                        1
+                    ),
+                    RGBA(
+                        255,
+                        0,
+                        0,
+                        .6
+                    )
+                )
             Height: =41
-            Text: =If(IsBlank(ThisItem.CCPoints), "Not yet evaluated", ThisItem.CCPoints)
+            Text: |-
+                =If(
+                    IsBlank(ThisItem.CCPoints),
+                    "Not yet evaluated",
+                    Sum(
+                        ForAll(
+                            Filter(
+                                EvaluationPoints,
+                                EvaluationID = ThisItem.EvaluationID
+                            ),
+                            'CC Points'
+                        ),
+                        Value
+                    )
+                )
             Width: =247
             X: =923
             Y: =45

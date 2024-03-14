@@ -266,6 +266,7 @@ HREvaluation As screen:
                                 JobTitle: "",
                                 Picture: ""
                             },
+                            EvaluationID: First(colEvaluationPointsLastID).Value + 1,
                             WhatJobRole: {
                                 '@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
                                 Id: LookUp(

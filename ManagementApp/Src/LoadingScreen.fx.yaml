@@ -53,6 +53,10 @@ LoadingScreen As screen:
                     EvaluationPerson.DisplayName
                 )
             );
+            ClearCollect(
+                colEvaluationPointsLastID,
+                Last(EvaluationPoints).EvaluationID
+            );
             Concurrent(
                 Set(
                     varErrorESPopUp,
