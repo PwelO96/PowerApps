@@ -195,7 +195,8 @@ CCEvaluation As screen:
     tglBtnHREvaluation_1 As toggleSwitch:
         Default: =varButtonCCEvaluation
         OnCheck: |-
-            =If(
+            =//ClearCollect(colTemp, Blank());
+            If(
                 IsBlank(cbxCandidateHRE_1.Selected.Value),
                 Set(
                     varEmptyCanCCFieldsError,
@@ -222,16 +223,23 @@ CCEvaluation As screen:
                 ),
                 ForAll(
                     galCompetenceCC.AllItems,
-                    Patch(
-                        EvaluationPoints,
+                    Collect(
+                        colTemp,
                         LookUp(
                             EvaluationPoints,
-                            drpCompetenceList_1.SelectedText.Value = WhatCompetence.Value && EvaluationID = Last(
+                            EvaluationID = Last(
                                 Filter(
                                     EvaluationPoints,
                                     cbxCandidateHRE_1.Selected.Value = WhoIsEvaluated.DisplayName && cbxJobRoleHRE_1.Selected.Value = WhatJobRole.Value && 'CC Points' = Blank()
                                 )
                             ).EvaluationID
+                        )
+                    );
+                    Patch(
+                        EvaluationPoints,
+                        LookUp(
+                            colTemp,
+                            drpCompetenceList_1.SelectedText.Value = WhatCompetence.Value
                         ),
                         {
                             CCCompetenceLevel: {
@@ -252,7 +260,8 @@ CCEvaluation As screen:
                                 0
                             )
                         }
-                    )
+                    );
+                    Select(Button1)
                 )
             );
             If(
@@ -359,10 +368,11 @@ CCEvaluation As screen:
             DisplayMode: =DisplayMode.View
             Fill: =RGBA(243,242,241,1)
             Height: =34
+            Items: =ThisItem.WhatCompetence
             PaddingLeft: =6
             Size: =10.5
             Width: =309
-            X: =321
+            X: =314
             Y: =22
             ZIndex: =5
 
@@ -442,6 +452,14 @@ CCEvaluation As screen:
             X: =568
             Y: =516
             ZIndex: =24
+
+    Button1 As button:
+        OnSelect: =Clear(colTemp);
+        Text: ="Button"
+        Visible: =false
+        X: =842
+        Y: =689
+        ZIndex: =25
 
     ConfirmPopUpErrorPopUpCCE As group:
         Height: =5

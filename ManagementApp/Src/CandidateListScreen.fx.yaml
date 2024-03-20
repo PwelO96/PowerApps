@@ -204,7 +204,7 @@ CandidateListScreen As screen:
             Height: =41
             Text: |-
                 =If(
-                    IsBlank(ThisItem.CCPoints),
+                    IsBlank(ThisItem.'CC Points'),
                     "Not yet evaluated",
                     Sum(
                         ForAll(
